@@ -1,0 +1,1 @@
+Modular sGCP/NGP designs using the wGCP-4-0-48(alternative) reference design as a parent (toggle switch). 

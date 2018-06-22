@@ -1,0 +1,613 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MCdesign &#8212; ModCell2 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ResAnalysis" href="ResAnalysis.html" />
+    <link rel="prev" title="Prodnet" href="Prodnet.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-src.&#64;MCdesign">
+<span id="mcdesign"></span><h1>MCdesign<a class="headerlink" href="#module-src.@MCdesign" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="src.&#64;MCdesign.MCdesign">
+<em class="property">class </em><code class="descname">MCdesign</code><span class="sig-paren">(</span><em>prodnet</em>, <em>number_cores</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.MCdesign" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class interfaces the metabolic model simulations of prodnet with
+the multiobjective optimization methods.</p>
+<dl class="method">
+<dt id="src.&#64;MCdesign.MCdesign.MCdesign">
+<code class="descname">MCdesign</code><span class="sig-paren">(</span><em>prodnet</em>, <em>number_cores</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.MCdesign.MCdesign" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prodnet</strong> (<em>Prodnet class</em>) – </td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>we are interested in solving.</dt>
+<dd>number_cores (Integer, optional). Number of processes to be spawned</dd>
+</dl>
+<p>by parpool. Defaults to feture(‘numCores’).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.N_OBJ_DIGITS">
+<code class="descname">N_OBJ_DIGITS</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.N_OBJ_DIGITS" title="Permalink to this definition">¶</a></dt>
+<dd><p>(integer) Number of significant digits in objective function, default 6.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.OBJ_TOL">
+<code class="descname">OBJ_TOL</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.OBJ_TOL" title="Permalink to this definition">¶</a></dt>
+<dd><p>(double) Corresponds to  1e-obj.N_OBJ_DIGITS</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.design_parameters">
+<code class="descname">design_parameters</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.design_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>(structure) See the method set_design_parameters for details</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.design_table">
+<code class="descname">design_table</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.design_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>(Hash table (containers.Map()). Stores previously evaluated individuals. As of Matlab2017, the containers.Map() object data structure is the fastest and most memory efficient option for this task.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.enum_parameters">
+<code class="descname">enum_parameters</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.enum_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>(structure) See the method enumerate_alternative_solutions for details</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.ga_parameters">
+<code class="descname">ga_parameters</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.ga_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>(structure) See the method set_default_ga_parameters for details</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.max_design_table_size">
+<code class="descname">max_design_table_size</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.max_design_table_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>(integer) Limits the number of elements in the design_table to avoid memory issues.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.number_cores">
+<code class="descname">number_cores</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.number_cores" title="Permalink to this definition">¶</a></dt>
+<dd><p>(integer) Number of processes to be used for parallel worker pool.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.prodnet">
+<code class="descname">prodnet</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.prodnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>(Prodnet class)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.random_number_seed">
+<code class="descname">random_number_seed</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.random_number_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>(double) Use a fixed value for reproducible results. This feature has not been throughly tested and it will not work when solving the problem in parallel, since Matlab does not offer yet a universal way to obtain reproducible random numbers in parfor loops.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.start_point">
+<code class="descname">start_point</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.start_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>(structure) See the method set_start_point for details</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.use_module_variable">
+<code class="descname">use_module_variable</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.use_module_variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>(logical) Indicates if module reactions are used or not.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;MCdesign.MCdesign.vector_difference_tolerance">
+<code class="descname">vector_difference_tolerance</code><em class="property"> = None</em><a class="headerlink" href="#src.@MCdesign.MCdesign.vector_difference_tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>(double) Numerical tolerance for vectors.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.add_to_design_table">
+<code class="descname">add_to_design_table</code><span class="sig-paren">(</span><em>obj</em>, <em>variable_vector</em>, <em>objective_vector</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.add_to_design_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Records  a solution in the design hash table</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>variable_vector</strong> (<em>logical vector</em>) – key.</li>
+<li><strong>objective_vector</strong> (<em>vector</em>) – value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.calc_enum_penalty_obj_fun">
+<code class="descname">calc_enum_penalty_obj_fun</code><span class="sig-paren">(</span><em>obj</em>, <em>x</em>, <em>excluded_solutions</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.calc_enum_penalty_obj_fun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes penalty objective function. Adapted from method calc_penalty_obj_fun.m</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>logical vector</em>) – design variable vector.</li>
+<li><strong>excluded_solutions</strong> (<em>logical matrix</em>) – Every row corresponds to a x which is not allowed in the final solution.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.calc_penalty_obj_fun">
+<code class="descname">calc_penalty_obj_fun</code><span class="sig-paren">(</span><em>obj</em>, <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.calc_penalty_obj_fun" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute penalty function objective values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>logical vector</em>) – design variable vector.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.combine_module_variables">
+<code class="descname">combine_module_variables</code><span class="sig-paren">(</span><em>y</em>, <em>Z</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.combine_module_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combines deletion variables and module variables for all networks into one vector</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>logical vector</em>) – design variable vector.</li>
+<li><strong>Z</strong> (<em>logical matrix</em>) – rows correspond to production networks, and columns to module variables.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.create_initial_population">
+<code class="descname">create_initial_population</code><span class="sig-paren">(</span><em>obj</em>, <em>nvars</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.create_initial_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an initial population for the MOEA</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nvars</strong> (<em>int</em>) – Number of variables.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.create_knowledge_based_initial_population">
+<code class="descname">create_knowledge_based_initial_population</code><span class="sig-paren">(</span><em>obj</em>, <em>max_deletions</em>, <em>deletion_id</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.create_knowledge_based_initial_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a start point for the optimization algorithm based on prior
+information about useful deletions.</p>
+<blockquote>
+<div><p>deletion_id (cell): Ids of reactions used to build initial point.
+population_size(double, optional): Default is obj.ga_parameters.population_size
+seed(double, optional): Random number generator seed. Default is 1000,</p>
+<blockquote>
+<div>so unless changed the output is deterministic.</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt>Notes</dt>
+<dd><ul class="first last simple">
+<li><dl class="first docutils">
+<dt>Currently sampling works by first enumerating all solutions, so the</dt>
+<dd>the number of candidate reactions and the number of deletions
+shoudl not be to high.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Module variables are ignored and will be filled up with zeros by</dt>
+<dd><a class="reference internal" href="#src.&#64;MCdesign.create_initial_population" title="src.&#64;MCdesign.create_initial_population"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">src.&#64;MCdesign.create_initial_population()</span></code></a>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Once all combinations of deletions up to the target cardinality have</dt>
+<dd>been included, the remaining population will be filled with random
+designs to hit the target size.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.crossover_module_variable">
+<code class="descname">crossover_module_variable</code><span class="sig-paren">(</span><em>obj</em>, <em>parents</em>, <em>~</em>, <em>nvars</em>, <em>~</em>, <em>~</em>, <em>thisPopulation</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.crossover_module_variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Customized genetic operator for gamultiobj().</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parents</strong> – Row vector of parents chosen by the selection function</li>
+<li><strong>options</strong> – options structure</li>
+<li><strong>nvars</strong> – Number of variables</li>
+<li><strong>FitnessFcn</strong> – Fitness function</li>
+<li><strong>unused</strong> – Placeholder not used</li>
+<li><strong>thisPopulation</strong> – Matrix representing the current population. The number of rows of the matrix is Population size and the number of columns is Number of variables.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the crossover offspring as a matrix where rows correspond to the children. The number of columns of the matrix is Number of variables.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">xoverKids</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<dl class="docutils">
+<dt>It seems like this function is slower than the default ( I have not done rigorous timing though).</dt>
+<dd>To optimize potentially one could avoid making copies of variables and calling external functions,
+but due to the complexity of the design variable vector that could look very ugly.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.enumerate_alternative_solutions">
+<code class="descname">enumerate_alternative_solutions</code><span class="sig-paren">(</span><em>obj</em>, <em>enum_parameters</em>, <em>total_max_time</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.enumerate_alternative_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumerates alternative solutions and saves resulting file to problem
+directory (proble-name/output/alternative_solutions).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>enum_parameters.solution_id</strong> (<em>str</em>) – id of the mop_solution file
+containing the target design to be enumerated.</li>
+<li><strong>enum_parameters.max.deletions</strong> (<em>int</em>) – Maximum number of deletions
+allowed for feasible solutions</li>
+<li><strong>enum_parameters.max.module</strong> (<em>vector of int</em>) – Length corresponds to production networks. Maximum number of module reactions allowed in feasible solutions.</li>
+<li><strong>total_max_time</strong> (<em>double, optional</em>) – overall time given to the method,
+default is intmax. Note that the maximum time of each run can be
+controlled by the parameter  obj.ga_parameters.max_time;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>The genetic algorithm parameters are taken from obj.ga_parameters.</li>
+<li><dl class="first docutils">
+<dt>Regarding enumeration of alternative solutions: 1) for efficiency</dt>
+<dd>can stop as soon as violation occurs, instead of computing all
+objectives. 2) it may be intersting to prespecify starting excluded solutions.</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.enumerate_alternative_solutions_one_target">
+<code class="descname">enumerate_alternative_solutions_one_target</code><span class="sig-paren">(</span><em>obj</em>, <em>excluded_solutions</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.enumerate_alternative_solutions_one_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>looks for one alternative solution until it is found or the maximum
+number of generations is reached. Adapted from solve_mop_for_stall_gen for single objective problem.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>excluded_solutions</strong> (<em>logical matrix</em>) – Rows correspond to designs and
+columns to design variables.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.extract_alternative_solutions">
+<code class="descname">extract_alternative_solutions</code><span class="sig-paren">(</span><em>obj</em>, <em>mop_solution</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.extract_alternative_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds alternative solutions present in the mop_solution, extracts them, and
+introduced them into the structure alternative_solutions, which is then
+appended to mop_solutions.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.extract_module_variables">
+<code class="descname">extract_module_variables</code><span class="sig-paren">(</span><em>x</em>, <em>n_deletion_var</em>, <em>n_prod</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.extract_module_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decomposes a vector of design variable x into a deletion vector y, and a
+module reaciton matrix Z.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n_deletion_var</strong> (<em>int</em>) – number of candidate reactions.</li>
+<li><strong>x</strong> (<em>logical vector</em>) – vector containing all variabels passed to the optimization algorithnm</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>y</strong> (<em>logical vector</em>) – Reaction deletions (length of cand reactions)</li>
+<li><strong>Z</strong> (<em>logical matrix</em>) – Matrix of n_prod by cand reactions.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<dl class="docutils">
+<dt>This function was recycled so that is why I originally introduced</dt>
+<dd>it as a method, but obviously n_deletion_var and n_prod are static
+properties of the Prodnet class.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.find_dominated_rows">
+<code class="descname">find_dominated_rows</code><span class="sig-paren">(</span><em>A</em>, <em>B</em>, <em>uniqueFlag</em>, <em>verbose</em>, <em>n_significant_digits</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.find_dominated_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides information regarding domination of the rows from matrix A
+compared to the rows of matrix B. A and B dont need to have the same number
+of rows.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>A</strong> (<em>matrix</em>) – </li>
+<li><strong>B</strong> (<em>matrix, optional</em>) – Default is B = A.</li>
+<li><strong>uniqueFlag</strong> (<em>logical, optional</em>) – if true (default), only check unique rows in A, and unique rows in B.</li>
+<li><strong>verbose</strong> – 2 display lots of information. 1 display
+some information. 0 display no information (default).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>A_dominated_ind</strong> (<em>vector</em>) – Indices of rows dominated in A.</li>
+<li><strong>B_dominated_ind</strong> (<em>vector</em>) – Indices of rows dominated in B.</li>
+<li><strong>isEqual</strong> (<em>logical</em>) – Indicates if A and B are equal.</li>
+<li><strong>dom_relation_A</strong> (<em>containers.Map()</em>) – Key is a solution in A and values are solutions in B dominated by
+that solution in A.</li>
+<li><strong>dom_relation_B</strong> (<em>containers.Map()</em>) – Key is a solution in B and values are solutions in A dominated by
+that solution in B.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.growth_to_nongrowth_designs">
+<code class="descname">growth_to_nongrowth_designs</code><span class="sig-paren">(</span><em>obj</em>, <em>mop_solution</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.growth_to_nongrowth_designs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Since the candidate set for growth objectives (wGCP, sGCP) is different
+than that of nongrowth objectives(NGP), in order to use a growth design
+as a starting point for NGP objective, they must be converted to the
+appropriate indices.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.lookup_design_table">
+<code class="descname">lookup_design_table</code><span class="sig-paren">(</span><em>obj</em>, <em>variable_vector</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.lookup_design_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain a solution from the design table or an indicator that it is not
+present.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>variable_vector</strong> (<em>logical vector</em>) – key.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>isPresent</strong> (<em>logical</em>) – True if solution is present.</li>
+<li><strong>objective_vector</strong> (<em>vector</em>) – value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.mutationuniform_module">
+<code class="descname">mutationuniform_module</code><span class="sig-paren">(</span><em>obj</em>, <em>parents</em>, <em>~</em>, <em>GenomeLength</em>, <em>~</em>, <em>~</em>, <em>~</em>, <em>thisPopulation</em>, <em>mutationRate</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.mutationuniform_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adapted from Matlab’s mutationuniform.m to satisfy module variable
+constraints. Input and outputs are defined in Matlab’s documentation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.save_mop_solution">
+<code class="descname">save_mop_solution</code><span class="sig-paren">(</span><em>obj</em>, <em>mop_solution</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.save_mop_solution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the mop_solution structure into the appropiate output directory.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.set_default_ga_parameters">
+<code class="descname">set_default_ga_parameters</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.set_default_ga_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts up the ga_parameters structure with default values.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.set_design_parameters">
+<code class="descname">set_design_parameters</code><span class="sig-paren">(</span><em>obj</em>, <em>design_parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.set_design_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setter for basic design parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>design_parameters.obj</strong> (<em>string</em>) – design objective, options are ‘wGCP’, ‘sGCP’, and ‘NGP’</li>
+<li><strong>design_parameters.max_deletions</strong> (<em>integer</em>) – Maximum number of deletions allowed.</li>
+<li><strong>design_parameters.max_module</strong> (<em>vector</em>) – Length corresponds to the number
+of production networks. Maximum module variables allowed in each
+production network.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.set_start_point">
+<code class="descname">set_start_point</code><span class="sig-paren">(</span><em>obj</em>, <em>solution_id</em>, <em>problem_path</em>, <em>mop_solution</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.set_start_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a starting point for the genetic algorithm.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>solution_id</strong> (<em>string</em>) – id of the solution to be used as starting point.</li>
+<li><strong>problem_path</strong> (<em>string, optional</em>) – Problem from which the solution will
+loaded. Default is obj.prodnet.problem_path.</li>
+<li><strong>mop_solution</strong> (<em>mop_solution structure, optional</em>) – Will ignore other
+input parameters and set this mop_solution as the starting point.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.solve_mop">
+<code class="descname">solve_mop</code><span class="sig-paren">(</span><em>obj</em>, <em>design_parameters</em>, <em>start_point_info</em>, <em>total_max_generations</em>, <em>total_max_time</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.solve_mop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solves multiobjective optimization problem.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>design_parameters</strong> (<em>structure</em>) – Input to <code class="xref mat mat-meth docutils literal notranslate"><span class="pre">set_design_parameters()</span></code></li>
+<li><strong>start_point_info</strong> (<em>structure, optional</em>) – Input to <code class="xref mat mat-meth docutils literal notranslate"><span class="pre">set_start_point()</span></code></li>
+<li><strong>total_max_generations</strong> (<em>integer, optional</em>) – Maximum number of generations allowed
+regardless of convergence criteria.</li>
+<li><strong>total_max_time</strong> (<em>double, optional</em>) – Maximum running time in minutes.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;MCdesign.solve_mop_for_stall_gen">
+<code class="descname">solve_mop_for_stall_gen</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@MCdesign.solve_mop_for_stall_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs MOEA for a fixed number of generations.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ModCell2</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modcell2basicr.html">Basic documentation for ModCell2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="moduledoc.html">Module documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Prodnet.html">Prodnet</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MCdesign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ResAnalysis.html">ResAnalysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Support.html">Support</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="moduledoc.html">Module documentation</a><ul>
+      <li>Previous: <a href="Prodnet.html" title="previous chapter">Prodnet</a></li>
+      <li>Next: <a href="ResAnalysis.html" title="next chapter">ResAnalysis</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Trinh Lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/MCdesign.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

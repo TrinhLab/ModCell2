@@ -1,0 +1,210 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>1   Quick start &#8212; ModCell2 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Basic documentation for ModCell2" href="modcell2basicr.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="quick-start">
+<h1>1&nbsp;&nbsp;&nbsp;Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<p>To start a new problem all you need is a cobra model of your parent
+strain in .mat format and <a class="reference external" href="modcell2basic_content.html#id1">input files</a> with you target product synthesis pathways. The <a class="reference external" href="examples.html">examples</a> provide step by step simulation and analysis. The scripts used to generate and analyze the results presented in the manuscript (found in the problem directories) can also be adapted to new cases.</p>
+</div>
+<div class="section" id="id1">
+<h1>2&nbsp;&nbsp;&nbsp;Input files<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>The input to ModCell2 is divided into the following tables:</p>
+<dl class="docutils">
+<dt>Pathway table</dt>
+<dd>Indicates the reactions in each production module.</dd>
+<dt>Reaction table</dt>
+<dd>Contains information for the reactions used in the pathway table.</dd>
+<dt>Metabolite table</dt>
+<dd>Contains information for the metabolites used in the metabolite table.</dd>
+<dt>Parameters table</dt>
+<dd>Neccessary simulation parameters, mostly help determine the candidate reactions (see Supplementary File 1 of the manuscript).</dd>
+<dt>Secretion constraints table(optional)</dt>
+<dd>Exchange reaction bounds for specific production networks. This table also allows to change the bounds of arbitrary reactions within a production network.</dd>
+</dl>
+<p>The headers in each of these tables are described in more detail in the following sections. There is an alternative input, which is referred to as legacy input, where all these tables are combined in an excel sheet. This is the format use for E. coli core Trinh models.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The user must ensure that metabolic reactions in production pathways are mass balanced, share metabolite ids with the model, and are generally correct. ModCell2 performs some quality checks, but it is beyond its scope to comprehensively analyze patwhay correcteness.</p>
+</div>
+<div class="section" id="pathway-table">
+<h2>2.1&nbsp;&nbsp;&nbsp;Pathway table<a class="headerlink" href="#pathway-table" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>id(string)</dt>
+<dd>Production network ID, must be unique.</dd>
+<dt>name(string)</dt>
+<dd>Production network name.</dd>
+<dt>rxns (list of reaction ids: [‘RXN1’, ‘RXN2’])</dt>
+<dd>Contains the reactions (native or heterologus) for the production module.</dd>
+<dt>product_id(string)</dt>
+<dd>The metabolite id (as presented in the Metabolite table) of the final product.</dd>
+</dl>
+<p>Additional fields may be present but are not required to run ModCell2.</p>
+</div>
+<div class="section" id="reaction-table">
+<h2>2.2&nbsp;&nbsp;&nbsp;Reaction table<a class="headerlink" href="#reaction-table" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>id(string)</dt>
+<dd>Reaction ID, must be unique. If the ID is the same as a reaction in the parent model, the features (directionality/reversibility) from this table will overwrite the parent model whenever this reaction is added in a production network.</dd>
+<dt>name(string)</dt>
+<dd>Reaction name.</dd>
+<dt>rxn_str (reaction string: met1 =&gt; met3)</dt>
+<dd>use =&gt; for reversible reactions and &lt;=&gt; for irreversible.</dd>
+</dl>
+<p>Additional fields may be present but are not required to run ModCell2.</p>
+</div>
+<div class="section" id="metabolite-table">
+<h2>2.3&nbsp;&nbsp;&nbsp;Metabolite table<a class="headerlink" href="#metabolite-table" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>id(string)</dt>
+<dd>Metabolite ID, must be unique.</dd>
+<dt>name(string)</dt>
+<dd>Metabolite name.</dd>
+<dt>formula(string)</dt>
+<dd>Metabolite formula (e.g. C5H12O)</dd>
+<dt>charge (integer)</dt>
+<dd>Metabolite charge.</dd>
+</dl>
+<p>Additional fields may be present but are not required to run ModCell2.</p>
+</div>
+<div class="section" id="parameters-table">
+<h2>2.4&nbsp;&nbsp;&nbsp;Parameters table<a class="headerlink" href="#parameters-table" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>minimum_growth_rate (real number)</dt>
+<dd>Minimum growth rate required for wGCP and sGCP designs. Usually this value will correspond to the minimum growth rate predicted by the model which would represent growth in vivo (10-20% of the maximum in silico growth).</dd>
+<dt>protected_subsystems (subsystem id)</dt>
+<dd>Reactions associated with this subsystems in the model will not be considered for deletion (unless present in the column forced_reaction_id introduced below).</dd>
+<dt>allow_transport_reaction_deletion (‘no’ or ‘yes’)</dt>
+<dd>Determines if transport reactions can be deleted. Usually transport reactions will not be allowed as candidates besides for transport of energetic metabolites (see next field).</dd>
+<dt>metabolite_transport_allowed (metabolite id)</dt>
+<dd>Transport reactions featuring these metabolites will not by excluded by the forbid transport reaction criteria (note that other criteria can exclude them from the candidate set, e.g. if the reaction is blocked).</dd>
+<dt>max_carbons (integer)</dt>
+<dd>If a reaction involves metabolites  with a carbon number above the specified here (with he exception of those listed in currency_metabolites_ignored_by_max_carbon), that reaction will not be considered for deletion.</dd>
+<dt>currency_metabolites_ignored_by_max_carbon (metabolite id without compartment)</dt>
+<dd>See max_carbons.</dd>
+<dt>protected_metabolites_id (metabolite id)</dt>
+<dd>If the reaction includes any of these metabolites, it will not be considered for deletion.</dd>
+<dt>protected_reaction_id (reaction id)</dt>
+<dd>These reactions will not be candidates for deletion.</dd>
+<dt>forced_reaction_id (reaction id)</dt>
+<dd>These reactions will be candidates for deletion regardless of any other criteria.</dd>
+<dt>protected_gene_id (gene id)</dt>
+<dd>These genes will not be candidates for deletion.</dd>
+<dt>forced_gene_id (gene id)</dt>
+<dd>These genes will be candidates for deletion regardless of any other criteria.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="modcell2-features">
+<h1>3&nbsp;&nbsp;&nbsp;ModCell2 features<a class="headerlink" href="#modcell2-features" title="Permalink to this headline">¶</a></h1>
+<p>Overall ModCell2 is organized in 3 classes: <code class="xref mat mat-class docutils literal notranslate"><span class="pre">Prodnet</span></code>, which parses the problem input, and computes cellular phenotypes (design objectives) upon genetic manipulations (through design variables); <a class="reference internal" href="MCdesign.html#module-src.&#64;MCdesign" title="src.&#64;MCdesign"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">MCdesign</span></code></a>, which primarily serves as an interface between Prodnet and the optimization solvers; and <a class="reference internal" href="ResAnalysis.html#module-src.&#64;ResAnalysis" title="src.&#64;ResAnalysis"><code class="xref mat mat-class docutils literal notranslate"><span class="pre">ResAnalysis</span></code></a> which provides a variety of tools for analyzing results in order to select the most promising design (Figure 1). To explore all of ModCell2 possibilities visit the  <a class="reference external" href="moduledoc.html">module documentation</a></p>
+<div class="figure" style="width: 130%">
+<a class="reference internal image-reference" href="_images/software_design.png"><img alt="software design" src="_images/software_design.png" style="width: 1056.0px; height: 384.0px;" /></a>
+</div>
+<p>Figure 1: Organization of the ModCell2 package.</p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ModCell2</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modcell2basicr.html">Basic documentation for ModCell2</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1&nbsp;&nbsp;&nbsp;Quick start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">2&nbsp;&nbsp;&nbsp;Input files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modcell2-features">3&nbsp;&nbsp;&nbsp;ModCell2 features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="moduledoc.html">Module documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modcell2basicr.html">Basic documentation for ModCell2</a><ul>
+      <li>Previous: <a href="modcell2basicr.html" title="previous chapter">Basic documentation for ModCell2</a></li>
+      <li>Next: <a href="examples.html" title="next chapter">Examples</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Trinh Lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/modcell2basic_content.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

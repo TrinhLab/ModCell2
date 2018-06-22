@@ -1,0 +1,1096 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ResAnalysis &#8212; ModCell2 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Support" href="Support.html" />
+    <link rel="prev" title="MCdesign" href="MCdesign.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-src.&#64;ResAnalysis">
+<span id="resanalysis"></span><h1>ResAnalysis<a class="headerlink" href="#module-src.@ResAnalysis" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="src.&#64;ResAnalysis.ResAnalysis">
+<em class="property">class </em><code class="descname">ResAnalysis</code><span class="sig-paren">(</span><em>prodnet</em>, <em>solution_input</em>, <em>prod_to_remove_id</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class features multiple functions that streamline the analysis of
+one or more solutions (all designs in a given set of parameters) and designs (a specific set of deletions with a solution from the mop).</p>
+<dl class="method">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.ResAnalysis">
+<code class="descname">ResAnalysis</code><span class="sig-paren">(</span><em>prodnet</em>, <em>solution_input</em>, <em>prod_to_remove_id</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.ResAnalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Args:
+Solution input( cell/string or mop_solution structure). Indicates solutions to be analyzed. Contains solution id(s) in the</p>
+<blockquote>
+<div>current prodnet problem path OR mop_solution structure.</div></blockquote>
+<p>prod_id_to_remove(cell). The id of products to be omited from the analysis.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.consistent_solutions">
+<code class="descname">consistent_solutions</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.consistent_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>(structure of mop solutions) All mop_solutions have the same number of networks, in case some networks are missing the design variables and objectives will be padded  with zeros.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.default_figure_info">
+<code class="descname">default_figure_info</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.default_figure_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>(structure) Note: Currently unused..colors: vector of 5-10 colors with strong contrast, .line_type</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.default_plot_lines">
+<code class="descname">default_plot_lines</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.default_plot_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>(structure) Plot formatting. Note: currently unused.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.is_wt_points_calc">
+<code class="descname">is_wt_points_calc</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.is_wt_points_calc" title="Permalink to this definition">¶</a></dt>
+<dd><p>(logical) Bookeeping.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.n_solutions">
+<code class="descname">n_solutions</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.n_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>(integer) Number of loaded solutions.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.prodnet">
+<code class="descname">prodnet</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.prodnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>(Prodnet class) Note this is a copy of prodnet, not a reference.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.solution_ids">
+<code class="descname">solution_ids</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.solution_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>(cell of strings) ids of loaded solutions, order matches the  solutions structure.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.solutions">
+<code class="descname">solutions</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>(structure of mop solutions)  Solutions for analysis.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.wt_all_growth_rates">
+<code class="descname">wt_all_growth_rates</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.wt_all_growth_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p>(matrix) Points for all  wild type production network production envelopes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="src.&#64;ResAnalysis.ResAnalysis.wt_all_product_yields">
+<code class="descname">wt_all_product_yields</code><em class="property"> = None</em><a class="headerlink" href="#src.@ResAnalysis.ResAnalysis.wt_all_product_yields" title="Permalink to this definition">¶</a></dt>
+<dd><p>(matrix) Points for all wild type production network production envelopes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.calc_flux_table">
+<code class="descname">calc_flux_table</code><span class="sig-paren">(</span><em>obj</em>, <em>design_ind</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.calc_flux_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a table of flux distributions for wt and all mutant production
+networks. Two states are possible growth and non-growth. Also, two flux
+estimation methods are possible, pFBA and FVA, in both cases the fluxes
+of product and biomass are fixed to the optimal state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>design_ind</strong> (<em>integer</em>) – Index of the specific design to be applied to construct mutant.</li>
+<li><strong>plot_top_n</strong> (<em>integer, optional</em>) – top fluxes to be ploted in heatmap figure</li>
+<li><strong>ng_state</strong> (<em>logical, optional</em>) – False (default) calcualte growth state fluxes
+(maximum growth rate is impossed as constraint). True: calculate non-growth state fluxes (growth rate isconstrained to 0)</li>
+<li><strong>sol_ind</strong> (<em>integer,optioinal</em>) – Index of the solution to which the design_ind belongs. Defaults to 1.</li>
+<li><strong>add_FVA</strong> (<em>logical, optional</em>) – If true adds FVA results to the pFBA
+table. Default is false.</li>
+<li><strong>calc_cofactor_turnover</strong> (<em>logical, optional</em>) – If true, creates a new table with cofactor turnovers
+from pFBA flux distributions. Default is false.</li>
+<li><strong>min_obj</strong> (<em>double, optional</em>) – Minimum objective value required to
+include production networks in the final table. Default is 0.</li>
+<li><strong>write_output</strong> (<em>logical, optional</em>) – If true,  writes an xls table (two if cofactor turnover option is enabled). Default is true. to problem output folder.</li>
+<li><strong>only_mutant_flux</strong> (<em>logical, optional</em>) – If true the table only contains
+reactions for mutant flux (no wild type, and no difference
+information). Default is false.</li>
+<li><strong>sort_by_diff</strong> (<em>logical, optional</em>) – If true, sorts the table by the
+average difference with respect to the wild type flux. default
+true.</li>
+<li><strong>solver</strong> (<em>string, optional</em>) – The solver to use, default is ‘cplex’, if
+not ‘gurobi’ will be used, and if neither is an option ‘matlab’ will be used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>flux.headers</strong> (<em>cell</em>) – headers for flux table</li>
+<li><strong>flux.data</strong> (<em>double</em>) – data for flux table</li>
+<li><strong>ct.headers</strong> (<em>cell</em>) – headers for cofactor turnover table</li>
+<li><strong>ct.data</strong> (<em>double</em>) – data for covator turnover table</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Gurobi is the preferred QP solver for pFBA. Parameters have been tweaked to ensure convergence. While the Matlab QP solver (quadprog) is supproted, it may not converge.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.calc_prod_envelope">
+<code class="descname">calc_prod_envelope</code><span class="sig-paren">(</span><em>obj</em>, <em>model_ind</em>, <em>npoints</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.calc_prod_envelope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds points for 2d projection of the metabolic model bu solving a series of LPs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>model_ind</strong> (<em>int</em>) – index of the target production network.</li>
+<li><strong>npoints</strong> (<em>int</em>) – Number of points to sample.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>growth_rates</strong> (<em>vector</em>)</li>
+<li><strong>product_yields</strong> (<em>vector</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>This function is a wrapper for the cobratoolbox function <cite>productionEnvelope()</cite>.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.calc_prod_envelope_s">
+<code class="descname">calc_prod_envelope_s</code><span class="sig-paren">(</span><em>model</em>, <em>npoints</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.calc_prod_envelope_s" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Finds points for 2d projection of the metabolic model by solving a series of LPs.</dt>
+<dd>This is a static verion of calc_prod_env</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>model</strong> – A cobra model with modcell fields.</li>
+<li><strong>npoints</strong> (<em>int</em>) – Number of points to sample.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>growth_rates</strong> (<em>vector</em>)</li>
+<li><strong>product_rates</strong> (<em>vector</em>)</li>
+<li><strong>product_yields</strong> (<em>vector</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>This function is a wrapper for the cobratoolbox function <cite>productionEnvelope()</cite>.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.compatibility">
+<code class="descname">compatibility</code><span class="sig-paren">(</span><em>obj</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.compatibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze compatibility of the solutions in obj.solutions</p>
+<dl class="docutils">
+<dt>Args</dt>
+<dd>cutoff(double): Compatibility threshoold, default is 0.6;</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>comp(i).vals</strong> (<em>vector</em>) – compatibility of all solutions</li>
+<li><strong>comp(i).max</strong> (<em>double</em>) – maximum compatibility</li>
+<li><strong>comp(i).max_inds</strong> (<em>vector</em>) – indices of the most compatible solutions</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.create_consistent_solutions">
+<code class="descname">create_consistent_solutions</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.create_consistent_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create consistent solutions, i.e. all mop_solutions index to the same
+production networks. The first solution is used as a reference, and
+missing production networks are included in other solutions.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>This is relevant for analysis functions like plot_yield_vs_growth and</dt>
+<dd>plot_design_tradeoff.</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.escher_input_from_pFBA_table">
+<code class="descname">escher_input_from_pFBA_table</code><span class="sig-paren">(</span><em>obj</em>, <em>pfba_t_filename</em>, <em>column_id</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.escher_input_from_pFBA_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keeps two columns for pFBA table and writes a csv which may be used for
+analysis with escher.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pfba_t_filename</strong> (<em>string</em>) – name of the file resulting from <a class="reference internal" href="#src.&#64;ResAnalysis.calc_flux_table" title="src.&#64;ResAnalysis.calc_flux_table"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">src.&#64;ResAnalysis.calc_flux_table()</span></code></a></li>
+<li><strong>column_id</strong> (<em>string</em>) – id indicating the production network to be kept in
+the output.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.fcm_get_table">
+<code class="descname">fcm_get_table</code><span class="sig-paren">(</span><em>obj</em>, <em>n_clusters</em>, <em>sol_ind</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.fcm_get_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs fuzzy c-means clustering and returns the output in a table form</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n_clusters</strong> (<em>integer</em>) – Number of clusters for k-medoids.</li>
+<li><strong>solution_ind</strong> (<em>integer, optional</em>) – Index of the solution to be ploted,
+defaults to 1.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>table_id</strong> (<em>cell of strings</em>) – contains cluster id (headers)</li>
+<li><strong>table_val</strong> (<em>doubles</em>) – table of membership values</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.fcm_scan_c">
+<code class="descname">fcm_scan_c</code><span class="sig-paren">(</span><em>obj</em>, <em>sol_ind</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.fcm_scan_c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the objective value of fuzzy c-means results versus the number of
+clusters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>solution_ind</strong> (<em>integer, optional</em>) – Index of the solution to be ploted,
+defaults to 1.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.find_superset">
+<code class="descname">find_superset</code><span class="sig-paren">(</span><em>obj</em>, <em>deleted_rxns</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.find_superset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identify designs from the pool of solutions loaded in obj, which contain
+the deleitions of the design specified by design_ind and solution_ind.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>deleted_rxns</strong> (<em>cell</em>) – Reaction ids of the design under investigaion.
+Can be obtained with: [~, deleted_rxns] =
+ra.print_design(design_ind, ‘sol_ind’,sol_ind). It is important to
+use candidate reactions (e.g. for cases with fully coupled
+subsets), in order to identify supersets correctly.</li>
+<li><strong>sol_ind</strong> (<em>int, optional</em>) – Index of the solution from which to draw
+design. Default is 1.</li>
+<li><strong>verbose</strong> (<em>logical, true</em>) – Display results.</li>
+<li><strong>alternative_ind</strong> (<em>int, optional</em>) – Index of the alternative solution of
+design_ind under study. Default is the original solution provided
+by design_ind.</li>
+<li><strong>comp_cutoff</strong> (<em>scalar, optional</em>) – compatibility of superset designs. Default is 0.6.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>Each entry corresponds to a superset of the</dt>
+<dd><p class="first last">target solution. The fields are: .design_ind, .sol_ind, .sol_id, .deletions</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">supersets (struct array)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.get_CPF">
+<code class="descname">get_CPF</code><span class="sig-paren">(</span><em>PF</em>, <em>cutoff</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.get_CPF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes categorical pareto front.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.graph_deletion_frequency">
+<code class="descname">graph_deletion_frequency</code><span class="sig-paren">(</span><em>obj</em>, <em>solution_ind</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.graph_deletion_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defined by a square matrix of reaction deletion frequencies, this graph
+allows to identify clusters of reactions that appear deleted often. Aij =  P(reaction j in design | reaction i in design).</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>The graph has to be directed, because the probability of needing one deletion depends on which one has been done first.</li>
+<li>A simpler graph could use the overall probability (based on the numeber of desings)</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.graph_sequential_implementation">
+<code class="descname">graph_sequential_implementation</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.graph_sequential_implementation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#src.&#64;ResAnalysis.graph_sequential_implementation_s" title="src.&#64;ResAnalysis.graph_sequential_implementation_s"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">graph_sequential_implementation_s()</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.graph_sequential_implementation_s">
+<code class="descname">graph_sequential_implementation_s</code><span class="sig-paren">(</span><em>mop_solutions</em>, <em>solution_id</em>, <em>prodnet</em>, <em>prod_id</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.graph_sequential_implementation_s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequential implementation directed k-partite graph. Each partition
+corresponds to a set of parameters (e.g. wGCP-5-0) and each node to a
+specific design. E.g. wGCP-5-0-1 points to wGCP-6-0-1 if is the deletions in
+the former are contained in the later.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>The output files are meant to be analyzed with Cytoscape.</li>
+<li>The implementation uses sets of deletion IDs instead of faster logical indices , to allow for the case where indices are not consistent (e.g. wGCP vs NGP).</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mop_solutions</strong> (<em>cell array of mop_solution</em>) – </li>
+<li><strong>solution_id</strong> (<em>cell</em>) – </li>
+<li><strong>prodnet</strong> (<em>Prodnet object instance</em>) – </li>
+<li><strong>prod_id</strong> (<em>cell</em>) – </li>
+<li><strong>write_nstep_graph</strong> (<em>logical, optional</em>) – Default false.</li>
+<li><strong>base_path</strong> (<em>string, optioinal</em>) – Default = [inputs.prodnet.problem_path, filesep, ‘output’, filesep]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>sequential_implem_graph_edge.csv</strong> (<em>csv file</em>) – headers correspond to: source | target | additional_rxns <a href="#id1"><span class="problematic" id="id2">|</span></a>is_same.</li>
+<li><strong>sequential_implem_graph_edge_nstep.csv</strong> (<em>csv file</em>) – The same as sequential_implem_graph_edge.csv but the graph is complete
+in the sense that a node from one parameter set can have edges to any
+other downstream parameter set. ( In sequential_implem_graph_edge.csv
+nodes from one parameter set can only be connected with the next
+parameter set)</li>
+<li><strong>sequential_implem_graph_node.csv</strong> (<em>csv file</em>) – A node attribute table with: node_id | short_name | design_param(i.e. partition)</li>
+<li><em>Warning</em> –<ul>
+<li><dl class="first docutils">
+<dt>This method assumes that mop_solutions are ordered in terms of</dt>
+<dd>increasing deletions.</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.identify_deletion_role">
+<code class="descname">identify_deletion_role</code><span class="sig-paren">(</span><em>model</em>, <em>base_deletion_set</em>, <em>compare_deletion_set</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.identify_deletion_role" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies the role of one or more reaction deletions in the model flux
+distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model</strong> (<em>cobra model</em>) – </li>
+<li><strong>base_deleion_set</strong> (<em>cell array of reaction ids</em>) – Use as a reference.</li>
+<li><strong>compare_deletion-set</strong> (<em>cell array of reaction ids</em>) – Usually contains one
+deletion less than the base_deletion_set, to idenify the role of
+such reaciton.</li>
+<li><strong>growth_state</strong> (<em>string, optional</em>) – <p>-‘all’ (default), growth state is not constrained.
+-‘max’ growth rate is fixed to the max attainable by the model with</p>
+<blockquote>
+<div>the base_deleion_set applied.</div></blockquote>
+<p>-‘none’ growth rate is fixed to zero.</p>
+</li>
+<li><strong>difference_type</strong> (<em>string, optional</em>) – <ul>
+<li><dl class="first docutils">
+<dt>fva_range_l1 (default), computes fva for both models, the flux</dt>
+<dd>range, and then sorts by the  absolute difference of ranges.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>fva_range_jaccard, omputes fva for both models, the flux</dt>
+<dd>range, and then sorts by the  jacard distancde of ranges.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>sample_distance, perform sampling in both models, then sort by the</dt>
+<dd>distance specified by the parameter ‘distribution_metric’</dd>
+</dl>
+</li>
+</ul>
+<blockquote>
+<div><ul>
+<li>pfba, compares pfba solution when maximizing growth rate for both models, and sorts by L1 norm.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><strong>distribution_metric</strong> (<em>string, optional</em>) – <p>If using the
+‘sampling_distance’ difference_type, determines what metric to use when</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>comparing distributions.</dt>
+<dd>-‘kolmogorov-smirnov-p’(default)
+-</dd>
+</dl>
+</div></blockquote>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Only fva methods have been tested</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.load_solutions">
+<code class="descname">load_solutions</code><span class="sig-paren">(</span><em>obj</em>, <em>solution_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.load_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>loads mop_solutions from problem output folders.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>solution_ids</strong> (<em>cell or string</em>) – ids of mop_solution files.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.piechart_deletion_frequency">
+<code class="descname">piechart_deletion_frequency</code><span class="sig-paren">(</span><em>deletions</em>, <em>categories_in</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.piechart_deletion_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pie chart of deletion distribution with category information.</p>
+<dl class="docutils">
+<dt>Args</dt>
+<dd>deletions(index).id (cell array): deletion ids
+categories(containers.Map()): maps ids to their respective category (e.g. subsystem).
+top(double, optional)
+figure_handle(object, optional):</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>While containers.Map() seemed like a useful data structure, it does</dt>
+<dd>not integrate well with the rest of matlab.</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.piechart_deletion_frequency_w">
+<code class="descname">piechart_deletion_frequency_w</code><span class="sig-paren">(</span><em>obj</em>, <em>sol_inds</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.piechart_deletion_frequency_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#src.&#64;ResAnalysis.piechart_deletion_frequency" title="src.&#64;ResAnalysis.piechart_deletion_frequency"><code class="xref mat mat-func docutils literal notranslate"><span class="pre">piechart_deletion_frequency()</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.plot_2d_pf">
+<code class="descname">plot_2d_pf</code><span class="sig-paren">(</span><em>obj</em>, <em>n_clusters</em>, <em>solution_ind</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.plot_2d_pf" title="Permalink to this definition">¶</a></dt>
+<dd><p>A 2 dimensional representation of the pareto front, representative
+solutions are determined through k-medoids clustering.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_clusters</strong> (<em>integer</em>) – Number of clusters for k-medoids.</li>
+<li><strong>solution_ind</strong> (<em>integer, optional</em>) – Index of the solution to be ploted,
+defaults to 1.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.plot_compatibility">
+<code class="descname">plot_compatibility</code><span class="sig-paren">(</span><em>obj</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.plot_compatibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Box plot of compatibility distributions accross paramters sets.
+Compatibility of a solution is the number of products with design
+objective above a certain threshold.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>categorical_cutoff_wGCP_NGP</strong> (<em>-</em>) – build the categorical pareto front of solutions using the wGCP and
+NGP objectives, the default is 0.6.</li>
+<li><strong>categorical_cutoff_sGCP</strong> (<em>-</em>) – build the categorical pareto front of solutions using the sGCP
+objective, the default is 0.36.</li>
+<li><strong>plot_type</strong> (<em>-</em>) – ‘default’ (default),
+‘no-ndesigns’,’inplot-ndesigns’.</li>
+<li><strong>y_n_loc</strong> (<em>-</em>) – If the option ‘inplot-ndesigns’ is used,
+this controls the y position. Default is 0.4.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.plot_design_tradeoff">
+<code class="descname">plot_design_tradeoff</code><span class="sig-paren">(</span><em>obj</em>, <em>design_ind</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.plot_design_tradeoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the objective value of the selected design(s), specified by
+design_ind, with respect to the maximum objective value for each
+objective.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>For two wGCP solutions, wGCP-10-0 and wGCP-10-3 loaded in obj, in that
+order, to plot wGCP-10-0-5 and wGCP-10-3-10 run:
+<cite>obj.plot_design_tradeoff([5,10],[1,2])</cite>.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>design_ind</strong> (<em>vector</em>) – Indices of the solutions of designs to be plotted,
+each design corresponds to a solution specified in inputs.solution_ind.</li>
+<li><strong>solution_ind</strong> (<em>integer, optional</em>) – Defaults to 1:length(design_ind).</li>
+<li><strong>sort_solution</strong> (<em>logical, optional</em>) – Defaults to true, the objectives are
+sorted to improve readibility. If false, the order of the
+ra.consitent_solution is used</li>
+<li><strong>plot_type</strong> (<em>string, optional</em>) – ‘overlap’(default), all solutions in one
+plot. ‘split’(one plot per solution); ‘split-bar’, one plot per
+solution using bar plot for maximum objective.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.plot_fva_range">
+<code class="descname">plot_fva_range</code><span class="sig-paren">(</span><em>fva_results</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.plot_fva_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a visual plot of fva ranges comparing two models</p>
+<dl class="docutils">
+<dt>Args</dt>
+<dd><ul class="first last simple">
+<li>fva_results.rxns (cell array): reaction ids</li>
+<li>fva_results.maxflux_base (vector): vector of maximum fluxes for base model</li>
+<li>fva_results.minflux_base (vector)</li>
+<li>fva_results.maxflux_compare (vector)</li>
+<li>fva_results.minflux_compare (vector)</li>
+<li><dl class="first docutils">
+<dt>sort_ind (vector, optional): A sorting vector for reactions. Default</dt>
+<dd>is sort by range.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>top(integer, optional): plots the top reactions from sort_ind,</dt>
+<dd>default is 20 first.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>Credits</dt>
+<dd><ul class="first last simple">
+<li>Adapted from cobra toolbox tutorial</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.plot_pareto_front">
+<code class="descname">plot_pareto_front</code><span class="sig-paren">(</span><em>obj</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.plot_pareto_front" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots pareto front clustergram and related figures.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>solution_ind_or_id</strong> (<em>integer or string, optional</em>) – </li>
+<li><strong>plot_cpf</strong> (<em>logical, optional</em>) – </li>
+<li><strong>save_cpf</strong> (<em>string, optional</em>) – ‘no’
+(default), ‘heatmap’(saves a tables of 0s and 1s which can be used
+for a heatmap), ‘names’ (a real table version which lists the
+networks in each cpf).</li>
+<li><strong>cpf_cutoffs</strong> (<em>vector, optional</em>) – A vector of objective values used to generate a categorical pareto front. Note that a scalar can also be provided. Default is 0.6.</li>
+<li><strong>plot_pareto_set</strong> (<em>logical, optional</em>) – If true, the pareto set is plotted as a clustergram. Default false.
+plot_hetmap (logical, optional): If true, heatmaps plots are used instead of clustergrams. Defaults to false.
+save_to_emf (logical, optional): If true, saves the output to an enhanced metafile. Defaults to true.
+figure_size (vector of figure size, optional): Used in Matlab to specify figure size and location. By default Matlab will determine this.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>This instruction can be used to supress figure display: set(0,’DefaultFigureVisible’,’off’)</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.plot_pca">
+<code class="descname">plot_pca</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.plot_pca" title="Permalink to this definition">¶</a></dt>
+<dd><p>WIP</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.plot_yield_vs_growth">
+<code class="descname">plot_yield_vs_growth</code><span class="sig-paren">(</span><em>obj</em>, <em>design_inds</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.plot_yield_vs_growth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a multiple plot of production envelopes (aka convex hull). Many aspects of the plot can be customized.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>Note that optional parameters must be entered as a string-value pair, e.g. obj.plot_yield_vs_growth([5,1],’min_obj_val’, 0.1).</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>design_inds</strong> (<em>vector</em>) – The length matches the numbers of solutions loaded in obj.solutions. Each entry corresponds to the index of a design to be plotted for the solution in the same possition. E.g. if wGCP-5-0 and wGCP-6-0 are loaded, desing_inds = [5,1] plots wGCP-5-0-5 and wGCP-6-0-1.</li>
+<li><strong>plot_type</strong> (<em>string, optional</em>) – Two options, ‘matrix’(default) where each row is a design, or ‘overlap’ where designs share the same phenotypic space.</li>
+<li><strong>min_obj_val</strong> (<em>double, optional</em>) – Products below this objective value are not plotted. Default is 0.</li>
+<li><strong>yticks_values</strong> (<em>vector, opional</em>) – Default is choosen by Matlab.</li>
+<li><strong>n_rows</strong> (<em>string, optional</em>) – For overlap plot. # rows</li>
+<li><strong>n_cols</strong> (<em>string, optional</em>) – For overlap plot. # columns</li>
+<li><strong>use_prod_name</strong> (<em>logical, optional</em>) – If true, product names are used for plot titles. By default(false)
+product ids are used.</li>
+<li><strong>npoints</strong> (<em>integer, optional</em>) – Points used to sample the convex hull</li>
+<li><strong>convHullLineWidthWT</strong> (<em>double, optional</em>) – </li>
+<li><strong>convHullLineWidthMut</strong> (<em>double, optional</em>) – </li>
+<li><strong>fill_space</strong> (<em>logical,optional</em>) – Defautl true, color the space inside the convex hull.</li>
+<li><strong>wt_color</strong> (<em>rgb triplet scaled from 0-1, optional</em>) – e.g. [0,255,0]./255</li>
+<li><strong>wt_line_color</strong> (<em>rgb triplet scaled from 0-1, optional</em>) – </li>
+<li><strong>mut_color</strong> (<em>rgb triplet scaled from 0-1, optional</em>) – </li>
+<li><strong>mut_line_color</strong> (<em>rgb triplet scaled from 0-1, optional</em>) – </li>
+<li><strong>set_axis_front</strong> (<em>logical, optional</em>) – Default true, will put axis on top drawn figure content</li>
+<li><strong>TODO</strong> – <ul>
+<li>Document additional options.</li>
+<li>Consolidate with static method to avoid code duplication.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.plot_yield_vs_growth_s">
+<code class="descname">plot_yield_vs_growth_s</code><span class="sig-paren">(</span><em>model_array</em>, <em>ko_array</em>, <em>prod_id</em>, <em>solution_id</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.plot_yield_vs_growth_s" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Generates a multiple plot of production envelopes (aka convex hull).</dt>
+<dd>Many aspects of the plot can be customized.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model_array</strong> (<em>structure array</em>) – A structure of cobra models.</li>
+<li><strong>ko_array</strong> (<em>structure array</em>) – <p>The indices of this sturcture match those of the models.The only field is
+ko_array(i).designs(j).del, which is a cell array containing either reaction</p>
+<blockquote>
+<div>deletions or gene deletions. i is corresponds to the model index,
+and j to the design. All models must have the same number of
+designs. If the deletion_type is ‘other’, ko_array(i).designs(j).ub
+and ko_array(i).designs(j).lb must be provided.</div></blockquote>
+<dl class="docutils">
+<dt>prod_id <span class="classifier-delimiter">:</span> <span class="classifier">cell of strings</span></dt>
+<dd>Names of the models in model_array.</dd>
+<dt>solution_id <span class="classifier-delimiter">:</span> <span class="classifier">cell of strings</span></dt>
+<dd>Names of the solutions in model index.</dd>
+</dl>
+</li>
+<li><strong>deletion_type</strong> (<em>string, optional</em>) – <dl class="docutils">
+<dt>Type of deletion. Default is ‘reaction’. Alternatives are ‘gene’ for gene deletions,</dt>
+<dd>and ‘other’, which will enforce ko_array(i).designs(j).ub and .lb.</dd>
+</dl>
+</li>
+<li><strong>use_rates</strong> (<em>logical, optional</em>) – <dl class="docutils">
+<dt>If true The product rate will be ploted vs growth rate, if</dt>
+<dd>if false(default), the product yield will be ploted vs growth rate.</dd>
+</dl>
+</li>
+<li><strong>plot_type</strong> (<em>string, optional</em>) – Two options, ‘matrix’(default) where each row is a design, or ‘overlap’ where designs share the same phenotypic space.</li>
+<li><strong>yticks_values</strong> (<em>vector, opional</em>) – Default is choosen by Matlab.</li>
+<li><strong>n_rows</strong> (<em>string, optional</em>) – For overlap plot. # rows</li>
+<li><strong>n_cols</strong> (<em>string, optional</em>) – For overlap plot. # columns</li>
+<li><strong>npoints</strong> (<em>integer, optional</em>) – Points used to sample the convex hull</li>
+<li><strong>convHullLineWidthWT</strong> (<em>double, optional</em>) – </li>
+<li><strong>convHullLineWidthMut</strong> (<em>double, optional</em>) – </li>
+<li><strong>fill_space</strong> (<em>logical,optional</em>) – Defautl true, color the space inside the convex hull.</li>
+<li><strong>wt_color</strong> (<em>rgb triplet scaled from 0-1, optional</em>) – e.g. [0,255,0]./255</li>
+<li><strong>wt_line_color</strong> (<em>rgb triplet scaled from 0-1, optional</em>) – </li>
+<li><strong>mut_color</strong> (<em>rgb triplet scaled from 0-1, optional</em>) – </li>
+<li><strong>mut_line_color</strong> (<em>rgb triplet scaled from 0-1, optional</em>) – </li>
+<li><strong>set_axis_front</strong> (<em>logical, optional</em>) – Default true, will put axis on top drawn figure content</li>
+<li><strong>Usage</strong> – <ul>
+<li>Optional parameters must be entered as a string-value pair, e.g. obj.plot_yield_vs_growth([5,1],’min_obj_val’, 0.1).</li>
+<li>Module variables must be applied prior to input in the function.</li>
+</ul>
+<p>(i.e. ko_array(i).designs(j).del should contain deletions of the
+original desing - module variables).</p>
+</li>
+<li><strong>Warning</strong> – <ul>
+<li><dl class="first docutils">
+<dt>The state of the model_array (i.e. deletions or lack thereof) will be</dt>
+<dd>considered as the wild type state. Thus it is</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li><strong>Notes</strong> – <ul>
+<li><dl class="first docutils">
+<dt>This function is based on plot_yield_vs_growth.m but it is mean to be</dt>
+<dd>more flexible.</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.print_design">
+<code class="descname">print_design</code><span class="sig-paren">(</span><em>obj</em>, <em>design_ind</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.print_design" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays deleted reactions for a certain solution. Also indicates if the
+deletion does not apply to a certain producion network (module reaction)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>design_ind</strong> (<em>int</em>) – Index of the design to be printed.</li>
+<li><strong>sol_ind</strong> (<em>int, optional</em>) – Index of the solution from which to draw
+design, default is 1.</li>
+<li><strong>geneid2name</strong> (<em>dict_path, optional</em>) – The path to a two column csv file,</li>
+<li><strong>first columns are gene ids and second column are gene names.</strong> (<em>where</em>) – default is ‘’.</li>
+<li><strong>extra_rxns</strong> (<em>cell array of reaction ids</em>) – Additional reactions not in the design which
+will be included in the table. (useful for alternative solutions)</li>
+<li><strong>is_alternative</strong> (<em>logical, optional</em>) – If true, an alternative solution of design_ind, specified by alternative_ind
+will be considered. Default is false.</li>
+<li><strong>alternative_ind</strong> (<em>double, optional</em>) – Only relevant for alternative solutions (see
+is alternative). Index of the alternative solution,  default is 1.</li>
+<li><strong>verbose</strong> (<em>logical, optional</em>) – Weather or not to display the design.
+Default is true.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>T</strong> (<em>table</em>) – Design information</li>
+<li><strong>deleted_reactions</strong> (<em>cell array</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Currently only supports reaction deletions.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.remove_always_zero_prod">
+<code class="descname">remove_always_zero_prod</code><span class="sig-paren">(</span><em>obj</em>, <em>solution_ind</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.remove_always_zero_prod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes products (ignore for the analysis) which are always 0 in the feasible solutions
+corresponding to solution_ind.</p>
+<p>Args:
+solution_ind (int): Index of the solution to be deleted</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.remove_products">
+<code class="descname">remove_products</code><span class="sig-paren">(</span><em>obj</em>, <em>prod_to_remove_id</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.remove_products" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Deletes production networks from obj.prodnet, so that they are ignored</dt>
+<dd><p class="first">for the analysis.</p>
+<dl class="last docutils">
+<dt>Args:</dt>
+<dd>prod_to_remove_id (cell fo strings)</dd>
+</dl>
+</dd>
+</dl>
+<p>Prodnet already has a method for this</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.set_solution_state">
+<code class="descname">set_solution_state</code><span class="sig-paren">(</span><em>obj</em>, <em>sol_ind</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.set_solution_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a mop_solution and sets the obj.prodnet to the same state, in order to avoid side effects when analyzing that solution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sol_ind</strong> (<em>integer</em>) – Index of the solution to be retrieved.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.similarity_plots">
+<code class="descname">similarity_plots</code><span class="sig-paren">(</span><em>obj</em>, <em>type</em>, <em>output_graph_name</em>, <em>corr_cutoff</em>, <em>correl_type</em>, <em>solution_ind_or_id</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.similarity_plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render correlation graphs for pareto front matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>type</strong> (<em>str</em>) – Correlation coefficient ‘pearson’ or ‘spearman’.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Because matlabs graph rendering features are terrible, the graph can be outputed to a csv for better drawing with high quality free software like cytoscape</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.stepwise_implementation">
+<code class="descname">stepwise_implementation</code><span class="sig-paren">(</span><em>obj</em>, <em>design_ind</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.stepwise_implementation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explores all possible subsets of a solution and generates a report and a
+tree (cytoscape input) with the most promissing canidates to achieve the target design with
+useful designs on the way.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>design_ind</strong> (<em>integer</em>) – Index of the design in the solution given by sol_ind to be analyzed.</li>
+<li><strong>sol_ind</strong> (<em>integer, optional</em>) – Solution index, default 1.</li>
+<li><strong>compatibiliy_cutoff</strong> (<em>double, optional</em>) – Value used to determine
+compatibiliy of a design, defaul is 0.6.</li>
+<li><strong>max_level</strong> (<em>integer, optional</em>) – Number of levels in the implementation
+tree to explore. The default is up to the number of deleions in the
+given design minus 1. (e.g. if the given design has 5 deletions,
+subset designs with 1,2,3, and 4 deletions will be explored).</li>
+<li><strong>write_tables</strong> (<em>logical, optional</em>) – If true (default is false) a table of</li>
+<li><strong>sorted by compatibility, is written frol each level to</strong> (<em>designs,</em>) – </li>
+<li><strong>+ levelX.csv</strong> (<em>output_base_path</em>) – </li>
+<li><strong>write_graph</strong> (<em>logical, optional</em>) – If true (default) a output_base_path(string, opional) : For ouput files, default is
+obj.prodnet.problem_path/output/&lt;design-objective&gt;-&lt;design-deletitons&gt;-&lt;design-ind&gt;</li>
+<li><strong>min_obj_val</strong> (<em>double, optional</em>) – For output graph, products with objectives below
+min_obj_val in all designs will be removed. Default is 0.1.</li>
+<li><strong>alt_sol_ind</strong> (<em>integer, optional</em>) – Index of an alternative_solution to
+design_ind. Default is 0 which indicates that no alternative
+solution is considered.</li>
+<li><strong>only_nondominated</strong> (<em>logical, optional</em>) – If true only non-dominated</li>
+<li><strong>at each step are kept. Default is false.</strong> (<em>solutions</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Notes</dt>
+<dd><ul class="first last simple">
+<li><dl class="first docutils">
+<dt>Module reactions are those of the final solution, so only one module</dt>
+<dd>needs to be constructed for all strains.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.write_result_tables">
+<code class="descname">write_result_tables</code><span class="sig-paren">(</span><em>obj</em>, <em>varargin</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.write_result_tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a report for a given set of solutions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_name</strong> (<em>string, optional</em>) – Name of the output file. Defaults to problem-name-report.</li>
+<li><strong>skip_log</strong> – Indicates if the sheet containing a log of the solutions should be skipped. Defaults to false.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Gene deletion report not suported yet</li>
+<li>All designs have to be growth type (i.e. wGCP,sGCP) or non-growth (NGP).</li>
+</ul>
+<ul class="simple">
+<li>Currently csv output does not include superheaders</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="src.&#64;ResAnalysis.write_to_xls">
+<code class="descname">write_to_xls</code><span class="sig-paren">(</span><em>obj</em>, <em>file_name</em>, <em>skip_log</em><span class="sig-paren">)</span><a class="headerlink" href="#src.@ResAnalysis.write_to_xls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a report for a given set of solutions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>file_name</strong> (<em>string, optional</em>) – Name of the output file. Defaults to problem-name-report.</li>
+<li><strong>skip_log</strong> (<em>logical, optional</em>) – Indicates if the sheet containing a log of the solutions should be skipped. Defaults to false.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Gene deletion report not suported yet</li>
+<li>All designs have to be growth type (i.e. wGCP,sGCP) or non-growth (NGP).</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Depreciated function, use ResAnalysis.write_result_tables instead.</li>
+</ul>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ModCell2</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modcell2basicr.html">Basic documentation for ModCell2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="moduledoc.html">Module documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Prodnet.html">Prodnet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MCdesign.html">MCdesign</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ResAnalysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Support.html">Support</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="moduledoc.html">Module documentation</a><ul>
+      <li>Previous: <a href="MCdesign.html" title="previous chapter">MCdesign</a></li>
+      <li>Next: <a href="Support.html" title="next chapter">Support</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Trinh Lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/ResAnalysis.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
