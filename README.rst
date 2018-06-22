@@ -8,7 +8,7 @@
     /_/  /_/\____/\__,_/\____/\___/_/_/   
     ==================================            
 
-This is the repository for the ModCell2 modular strain design framwork.
+This is the repository for the ModCell2 modular strain design framework.
 
 .. include:: ./CITATION.rst
 
@@ -52,9 +52,3 @@ Requierements
 .. _linprog: https://www.mathworks.com/help/optim/ug/linprog.html
 .. _Gurobi: http://www.gurobi.com/index
 
-Future developments
--------------------
-
-We are continously improving and adding additional features to ModCell. Check the Release_ page.
-
-.. _Release: https://www.placeholder
