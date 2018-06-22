@@ -18,7 +18,7 @@ Installation
 Download or clone this repository, then add simply add the ModCell2 folder to your MATLAB path by running
 ::
    
-   addpath(genpath(['<parent-directory>', filesep, 'modcell2']))
+   addpath(genpath(['<parent-directory>', filesep, 'ModCell2']))
 
 Where <parent-directory> depends on your system. To verify your installation execute :code:`run_all_tests.m`. :warning: Make sure the Requierements_ are met. :warning:.
 
@@ -28,7 +28,7 @@ Quick start
 All you need to use ModCell2 is a cobra model for your host organism, and the heterologus reactions required for each production pathway.
 Examples and more details are provided in the Documentation_.
 
-.. _Documentation: https://www.placeholder
+.. _Documentation: https://modcell2.readthedocs.io
 
 Contributions and issues
 ------------------------
