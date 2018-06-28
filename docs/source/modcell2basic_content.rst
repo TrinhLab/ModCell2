@@ -102,6 +102,11 @@ protected_gene_id (gene id)
 forced_gene_id (gene id)
         These genes will be candidates for deletion regardless of any other criteria.
 
+Parent model
+------------
+
+The parent  model will be used to construct the production networks that simulate the combinations of chassis with production modules. In addition to the standard cobra fields, ModCell utilizes a few additional fields which specify the biomass and substrate uptake reactions. This fields can be added to any cobra model by executing the method func:`src.support.cobra_modeling.add_modcell_fields`
+
 ModCell2 features
 ----------------
 
