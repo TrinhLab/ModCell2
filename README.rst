@@ -38,10 +38,14 @@ Examples and more details are provided in the Documentation_.
 
 .. _Documentation: https://modcell2.readthedocs.io
 
-Contributions and issues
-------------------------
+Issues
+------
 
 If you have any problems or need help using ModCell2 you can open an issue in the issue tracker.
+
+Contributions
+-------------
+
 If you improve ModCell, please share your contribution creating a pull request. Remember to use google-style or numpy-style docstrings, and create a test for your code.
 
 
