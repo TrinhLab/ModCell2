@@ -1,0 +1,3 @@
+Solution name,Time(s),Gap(%),Objective value,Deletions,BUTBUT_module,BUT_module,PRO_module,ETHBUT_module,IPROBUT_module,ETH_module,IBUT_module,IPRO_module,IBUTBUT_module,PROBUT_module
+incumbent,26.88,0.01,-10.500801228759371,"['ANA2', 'FC1r', 'GG12', 'TCA5', 'TCA9r', 'TRA1', 'TRA2', 'TRA4']",['TRA2'],['TCA9r'],['ANA2'],"['TRA2', 'FEM5']",['TRA1'],"['TRA1', 'FEM5']","['TRA1', 'FEM5']",['TRA1'],"['TRA1', 'FEM5']",['TCA9r']
+p2,,,-10.500801228759371,"['ANA2', 'FC1r', 'GG12', 'TCA5', 'TCA9r', 'TRA1', 'TRA2', 'TRA4']",['TRA2'],['TCA9r'],['ANA2'],"['TRA2', 'FEM5']",['TRA1'],"['TRA1', 'FEM5']","['TRA1', 'FEM5']",['TRA1'],"['TRA1', 'FEM5']",['TCA9r']

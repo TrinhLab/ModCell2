@@ -1,0 +1,3 @@
+Solution name,Time(s),Gap(%),Objective value,Deletions,IBUT_module,ETH_module,IBUTBUT_module,ETHBUT_module
+incumbent,0.36,0.00,-5.4999999871481489,['TRA4'],['FEM5'],['FEM5'],['FEM5'],['FEM5']
+p2,,,-5.4999999871481489,['TRA4'],['FEM5'],['FEM5'],['FEM5'],['FEM5']
