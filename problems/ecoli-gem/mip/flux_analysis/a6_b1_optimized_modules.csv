@@ -1,0 +1,3 @@
+Solution name,Time(s),Gap(%),Objective value,Deletions,etohUpdc_module,ppoh_module,ibutoh_module,pyr_module,lacUUD_module,ac_module,etylace_module,ppylace_module,ibutylace_module,etylbte_module,etylpte_module,ibutylpte_module,ptylpte_module
+incumbent,4911.49,0,0,"['ALCD2x', 'ALDD2y', 'FUM', 'LDH_D', 'PTAr', 'THD2pp']",['ALCD2x'],['PTAr'],['THD2pp'],['FUM'],['LDH_D'],"['THD2pp', 'PTAr']","['ALCD2x', 'ACALD']",['PTAr'],['FUM'],"['ALCD2x', 'ACALD']","['ALCD2x', 'ACALD']",['FUM'],['FUM']
+incumbent,4911.49,0,0,"['ALCD2x', 'ALDD2y', 'FUM', 'LDH_D', 'PTAr', 'THD2pp']",['ALCD2x'],['PTAr'],['THD2pp'],['FUM'],['LDH_D'],"['THD2pp', 'PTAr']","['ALCD2x', 'ACALD']",['PTAr'],['FUM'],"['ALCD2x', 'ACALD']","['ALCD2x', 'ACALD']",['FUM'],['FUM']

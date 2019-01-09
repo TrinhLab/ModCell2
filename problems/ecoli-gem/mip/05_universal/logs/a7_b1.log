@@ -1,0 +1,49 @@
+
+Log started (V12.8.0.0) Sun Oct 28 15:12:36 2018
+
+New value for time limit in seconds: 36000
+CPXPARAM_TimeLimit                               36000
+CPXPARAM_Emphasis_Numerical                      1
+CPXPARAM_Parallel                                -1
+CPXPARAM_Benders_Strategy                        3
+CPXPARAM_MIP_Tolerances_Integrality              9.9999999999999986e-10
+CPXPARAM_Emphasis_MIP                            4
+CPXPARAM_MIP_Pool_AbsGap                         0
+1 of 1 MIP starts provided solutions.
+MIP start 'm1' defined initial solution with objective 0.0000.
+Tried aggregator 3 times.
+MIP Presolve eliminated 570436 rows and 261735 columns.
+MIP Presolve added 634 rows and 0 columns.
+Aggregator did 34784 substitutions.
+Reduced MIP has 43096 rows, 131135 columns, and 395498 nonzeros.
+Reduced MIP has 687 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.81 sec. (800.38 ticks)
+Tried aggregator 2 times.
+MIP Presolve eliminated 634 rows and 0 columns.
+MIP Presolve added 634 rows and 0 columns.
+MIP Presolve modified 20 coefficients.
+Aggregator did 28 substitutions.
+Reduced MIP has 43068 rows, 131107 columns, and 395184 nonzeros.
+Reduced MIP has 687 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.20 sec. (166.62 ticks)
+
+Root node processing (before b&c):
+  Real time             =   62.37 sec. (32189.09 ticks)
+Parallel b&c, 8 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =   62.37 sec. (32189.09 ticks)
+
+Solution pool: 1 solution saved.
+
+MIP - Integer optimal solution:  Objective =  0.0000000000e+00
+Solution time =   62.47 sec.  Iterations = 0  Nodes = 0 (1)
+Deterministic time = 32221.77 ticks  (515.78 ticks/sec)
+
+
+Solution pool written to file 'a7_b1.sol'.
+
+MIP start 'm1' written to file 'a7_b1.mst'.
+Current MIP best bound = -0.0000000000e+00 (gap = -0, 0.00%)
