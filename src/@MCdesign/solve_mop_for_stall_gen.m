@@ -1,20 +1,19 @@
 function [mop_solution,output_file_id] = solve_mop_for_stall_gen(obj)
 % Runs MOEA for a fixed number of generations.
 
-
 configure_options();
 
 %% solve problem:
 
 if strcmp(obj.ga_parameters.algorithm,'gamultiobj')
-%set rng state
-rng(obj.ga_parameters.random_num_gen_seed,'twister')
-%gamultiobj
-obj_fun_handle =@(x)-calc_penalty_obj_fun(obj,x);
-[x,fval,~,output,population,scores] = ...
-    gamultiobj(obj_fun_handle,nvars,[],[],[],[],[],[],[],options);
+    %set rng state
+    rng(obj.ga_parameters.random_num_gen_seed,'twister')
+    %gamultiobj
+    obj_fun_handle =@(x)-calc_penalty_obj_fun(obj,x);
+    [x,fval,~,output,population,scores] = ...
+        gamultiobj(obj_fun_handle,nvars,[],[],[],[],[],[],[],options);
 else
-   [x,fval,output,population,scores] = obj.solve_mop_platemo(options);
+    [x,fval,output,population,scores] = obj.solve_mop_platemo(options);
 end
 
 %%
@@ -34,11 +33,11 @@ raw_design_variables(self_dominated_rows_ind,:) = [];
 %% Populate output:
 %
 % adjust to design variable
-if obj.use_module_variable   
+if obj.use_module_variable
     for i =1:size(raw_design_variables,1) %number of solutions
         
         [y,Z] = obj.extract_module_variables(raw_design_variables(i,:), obj.prodnet.n_cand,obj.prodnet.n_prod);
-
+        
         design_deletions_raw(i,:) = y;
         design_module_variables_raw(i).Z = Z;
     end
@@ -60,13 +59,13 @@ if obj.use_module_variable
     end
     %feasible_solutions =~violate_deletion_lim;
     feasible_solutions =~(violate_deletion_lim | violate_module_lim);
-   
+    
     %Somehow all solutions passed to the objective function are feasible in
     %terms of Z, but some manipulation occurs that creates unfeasible Z...
     if any(violate_module_lim)
-       warning('%d/%d solutions violate module constraints. This constraints shoulds always be satisfied. Unfeasible solutions removed.\n',sum(violate_module_lim),length(violate_module_lim));
+        warning('%d/%d solutions violate module constraints. This constraints shoulds always be satisfied. Unfeasible solutions removed.\n',sum(violate_module_lim),length(violate_module_lim));
     end
-        
+    
     mop_solution.raw.design_deletions = design_deletions_raw;
     mop_solution.raw.design_modules = design_module_variables_raw;
     mop_solution.design_deletions = design_deletions_raw(feasible_solutions,:);
@@ -92,7 +91,7 @@ mop_solution = obj.extract_alternative_solutions(mop_solution);
 %additional raw output:
 % I would have to store the scores
 %mop_solution.raw.design_objectives = raw_design_objectives; % Note that this corre
-mop_solution.raw.population = population; % note that 
+mop_solution.raw.population = population; % note that
 
 %bookkeeping
 mop_solution.start_point = obj.start_point;
@@ -114,14 +113,14 @@ output_file_id = obj.save_mop_solution(mop_solution);
 %% subfunctions
 %
     function configure_options()
-         
+        
         if obj.use_module_variable
-             nvars = obj.prodnet.n_cand + obj.prodnet.n_prod*obj.prodnet.n_cand;
+            nvars = obj.prodnet.n_cand + obj.prodnet.n_prod*obj.prodnet.n_cand;
         else
-             nvars = obj.prodnet.n_cand;
+            nvars = obj.prodnet.n_cand;
         end
-
-
+        
+        
         initial_population = obj.create_initial_population(nvars);
         
         %default:
