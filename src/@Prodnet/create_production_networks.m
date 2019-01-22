@@ -48,11 +48,17 @@ prod_id = pt.id;
 obj.n_prod = length(prod_id);
 obj.prod_id = prod_id;
 obj.prod_name = pt.name;
-
+%% Check parent model bounds
+keep_box_constraints = false;
+if any(obj.parent_model.lb == -1000 | obj.parent_model.ub ==1000) && ~any(obj.parent_model.lb == -inf | obj.parent_model.ub ==inf)
+    fprintf('Parent model contains -+1000 lower and upper bounds, consider replacing unkown bounds with +-inf for enhanced speed using change_unknown_bounds.m \n')
+    keep_box_constraints = true; % Some models have issues with +-inf bounds.
+    printSeparator()
+end
 %% Create models
 for i = 1:obj.n_prod
     fprintf('Production network for: %s\n',obj.prod_id{i})
-    pnmodel = create_production_network(obj, pt(obj.prod_id{i},:), rt, mt, sc,  check_balance);
+    pnmodel = create_production_network(obj, pt(obj.prod_id{i},:), rt, mt, sc,  check_balance, true, keep_box_constraints);
     if i==1
         obj.model_array = pnmodel;
     else
@@ -80,7 +86,7 @@ end
 
 end
 
-function pnmodel = create_production_network(obj,pt_row, rt, mt, sc, check_balance, verbose)
+function pnmodel = create_production_network(obj,pt_row, rt, mt, sc, check_balance, verbose, keep_box_constraints)
 if ~exist('verbose', 'var')
     verbose = true;
 end
@@ -89,7 +95,7 @@ pnmodel = obj.parent_model;
 
 pnmodel.description = [pnmodel.description,' + ',pt_row.name{1}, ' production module'];
 pnmodel = add_heterolgous_metabolites(pnmodel, pt_row, rt, mt, verbose);
-pnmodel = add_heterologus_and_module_reactions(pnmodel, pt_row, rt, verbose);
+pnmodel = add_heterologus_and_module_reactions(pnmodel, pt_row, rt, verbose,keep_box_constraints);
 if ~isempty(sc)
     pnmodel  = add_secretion_constraints(pnmodel,pt_row.id{1}, sc);
 end
@@ -154,7 +160,7 @@ end
 
 
 %%
-function  pnmodel = add_heterologus_and_module_reactions(pnmodel, pt_row, rt, verbose)
+function  pnmodel = add_heterologus_and_module_reactions(pnmodel, pt_row, rt, verbose, keep_box_constraints)
 %
 % Notes:
 %   - Reactions which are part of the pathway, and of the model (i.e. share
@@ -181,7 +187,11 @@ if verbose
 end
 %% Add heterologus reactions
 for i=1:length(het_rxns)
-    [lower_bound, upper_bound] = default_bounds_from_rxn_str(rt{het_rxns{i},'rxn_str'}{1}, Inf);
+    if keep_box_constraints
+        [lower_bound, upper_bound] = default_bounds_from_rxn_str(rt{het_rxns{i},'rxn_str'}{1}, 1000);
+    else
+        [lower_bound, upper_bound] = default_bounds_from_rxn_str(rt{het_rxns{i},'rxn_str'}{1}, Inf);
+    end
     pnmodel = addReaction_updated(pnmodel,{rt{het_rxns{i},'id'}{1},rt{het_rxns{i},'name'}{1}},rt{het_rxns{i},'rxn_str'}{1},[],1,lower_bound, upper_bound);
 end
 pnmodel.n_het_rxn = length(het_rxns);
@@ -190,10 +200,14 @@ pnmodel.het_rxn_ind = findRxnIDs(pnmodel, het_rxns);
 pnmodel.fixed_module_rxn_ind = [];
 pnmodel.fixed_module_gene_ind = [];
 for i=1:length(module_rxns)
-    [lower_bound, upper_bound] = default_bounds_from_rxn_str(rt{module_rxns{i},'rxn_str'}{1}, Inf);
+    if keep_box_constraints
+        [lower_bound, upper_bound] = default_bounds_from_rxn_str(rt{module_rxns{i},'rxn_str'}{1}, 1000);
+    else
+        [lower_bound, upper_bound] = default_bounds_from_rxn_str(rt{module_rxns{i},'rxn_str'}{1}, Inf);
+    end
     rxn_ind = findRxnIDs(pnmodel, module_rxns{i});
     pnmodel.fixed_module_rxn_ind = [pnmodel.fixed_module_rxn_ind; rxn_ind];
-    
+
     % update module reaction bounds
     if (pnmodel.lb(rxn_ind) ~= lower_bound)|| (pnmodel.ub(rxn_ind) ~= upper_bound)
         if verbose
@@ -204,16 +218,16 @@ for i=1:length(module_rxns)
         pnmodel.lb(rxn_ind) = lower_bound;
         pnmodel.ub(rxn_ind) = upper_bound;
     end
-    
-    % module genes
-    try
-        module_gene_id_ = findGenesFromRxns(pnmodel, module_rxns{i});
-        module_gene_ind = findGeneIDs(pnmodel, module_gene_id_{:});
-        pnmodel.fixed_module_gene_ind = [pnmodel.fixed_module_gene_ind; module_gene_ind];
-    catch
-        fprintf('GPR information may be missing. Gene deletions cannot be used.\n') 
-    end
 end
+% module genes
+try
+    module_gene_id_ = findGenesFromRxns(pnmodel, module_rxns{i});
+    module_gene_ind = findGeneIDs(pnmodel, module_gene_id_{:});
+    pnmodel.fixed_module_gene_ind = [pnmodel.fixed_module_gene_ind; module_gene_ind];
+catch
+    fprintf('GPR information may be missing. Gene deletions cannot be used.\n')
+end
+
 
 %% Add exchange reaction for target product
 % First see if product is present as external metabolite
@@ -248,7 +262,7 @@ end
 function check_charge_and_mass_balance()
 % Checks charge and mass balance of heterologus reactions
 if isfield(pnmodel,'metFormulas') && isfield(pnmodel,'metCharges')
-    
+
     if ~isempty(pnmodel.het_rxn_ind)
         fprintf('Checking heterologus reaction mass and charge balance...')
         model = pnmodel;

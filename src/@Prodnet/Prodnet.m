@@ -169,9 +169,6 @@ classdef Prodnet < matlab.mixin.Copyable
             check_parent_fields(obj.parent_model);
             
             obj.n_parent_rxn = length(obj.parent_model.rxns);
-            if any(obj.parent_model.lb == -1000 | obj.parent_model.ub ==1000) && ~any(obj.parent_model.lb == -inf | obj.parent_model.ub ==inf)
-                fprintf('Parent model contains -+1000 lower and upper bounds, replace unkown bounds with +-inf using change_unknown_bounds.m')
-            end
             
             %% Create production networks
             if input_info.old_format.use
