@@ -118,7 +118,7 @@ while true
     fprintf('Checking domination A(mop_solution), B(mop_solution_old),...\n')
     if isempty(mop_solution.design_objectives)
         warning('No solutions were found, increase number of generations and run problem again')
-        return
+        %return
     end
     [dominated_rows_ind,~,isEqual] = ...
         obj.find_dominated_rows(mop_solution.design_objectives,mop_solution_old.design_objectives,...
