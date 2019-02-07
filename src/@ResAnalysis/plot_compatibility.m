@@ -51,7 +51,7 @@ xtickangle(90)
 max_y = max(max(distr));
 min_y = min(min(distr));
 ylim([min_y-1,max_y+1])
-yticks(min_y:2:max_y)
+yticks(min_y:1:max_y)
 ylabel('Compatible products')
 
 switch inputs.plot_type
