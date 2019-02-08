@@ -66,6 +66,8 @@ p.addRequired('ko_array', @(x) isstruct(x) && length(x)  == length(model_array))
 p.addRequired('prod_id', @(x) length(x) == length(model_array))
 p.addRequired('solution_id', @iscell)
 
+p.addParameter('solver', 'glpk')
+
 p.addParameter('deletion_type','reaction',@(x)(strcmp(x,'reaction') | strcmp(x,'genes') | strcmp(x,'other')));
 p.addParameter('use_rates', false, @islogical);
 p.addParameter('plot_type',             'matrix'                         ,@(x)(strcmp(x,'matrix') || strcmp(x,'overlap')));
@@ -135,7 +137,7 @@ end
 %% Main calculations
 nprod = length(inputs.model_array);
 % Calculate wild type points
-[wt_all_growth_rates,wt_all_product_yields] = calc_wt_prod_envelope(inputs,nprod);
+[wt_all_growth_rates,wt_all_product_yields] = calc_wt_prod_envelope(inputs, nprod);
 
 
 % calculate mutant designs:
@@ -380,7 +382,7 @@ end
 function   [mut_all_growth_rates,mut_all_product_yields] =  parallel_dummy(i,mut_all_growth_rates,mut_all_product_yields,inputs,ndesigns)
 
 parfor j = 1:ndesigns
-    changeCobraSolver('glpk','LP',0,1);
+    changeCobraSolver(inputs.solver,'LP',0,1);
     
     % set design variables:
     switch inputs.deletion_type
@@ -418,7 +420,7 @@ function [wt_all_growth_rates, wt_all_product_yields] = calc_wt_prod_envelope(in
 wt_all_growth_rates     = zeros(nprod,1,2*inputs.npoints);
 wt_all_product_yields   = zeros(nprod,1,2*inputs.npoints);
 parfor i = 1:nprod
-    changeCobraSolver('glpk','LP',0,1);
+    changeCobraSolver(inputs.solver,'LP',0,1);
     if inputs.use_rates
         [wt_all_growth_rates(i,1,:), wt_all_product_yields(i,1,:)] = ... % they are actually rates  not yields
             ResAnalysis.calc_prod_envelope_s(inputs.model_array(i),inputs.npoints);
