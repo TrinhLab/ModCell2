@@ -64,13 +64,13 @@ obj.prodnet.reset_wild_type_state(); % To prevent unforseen side effects (Avoid 
 
 fprintf('Begin time: %s\n', datestr(now,'HH:MM'))
 
-tic
+tStart = tic;
 obj.ga_parameters.max_time = total_max_time*60;
 [mop_solution,output_file_id] = obj.solve_mop_for_stall_gen();
 
 
 total_new_generations = mop_solution.solution_additional_generations;
-total_time = toc;
+total_time = toc(tStart);
 
 if keep_interm_sol
     interm_ind = 1;
@@ -82,7 +82,7 @@ while true
     % updates
     mop_solution_old = mop_solution;
     total_new_generations = total_new_generations + mop_solution.solution_additional_generations;
-    total_time = toc;
+    total_time = toc(tStart);
     
     % Interemediate solutions
     if keep_interm_sol
