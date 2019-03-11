@@ -101,8 +101,17 @@ if ~isempty(sc)
 end
 %c mol ratio:
 [t,~] = regexp(mt.formula{pt_row.product_id}, 'C(\d+)', 'tokens', 'match');
-product_carbon_number = str2double(t{1}{1});
-
+if isempty(t)
+    % Either only one carbon or no carbons:
+    [t,~] = regexp(mt.formula{pt_row.product_id}, '(C)', 'tokens', 'match');
+    if isempty(t)
+        product_carbon_number = str2double(t{1}{1});
+    else
+        product_carbon_number = 1;
+    end
+else
+    product_carbon_number = str2double(t{1}{1});
+end
 pnmodel.cmol_ratio =  product_carbon_number/obj.parent_model.substrate_cmol;
 
 %Default linear objective is empty in all production networks
@@ -207,7 +216,7 @@ for i=1:length(module_rxns)
     end
     rxn_ind = findRxnIDs(pnmodel, module_rxns{i});
     pnmodel.fixed_module_rxn_ind = [pnmodel.fixed_module_rxn_ind; rxn_ind];
-
+    
     % update module reaction bounds
     if (pnmodel.lb(rxn_ind) ~= lower_bound)|| (pnmodel.ub(rxn_ind) ~= upper_bound)
         if verbose
@@ -262,7 +271,7 @@ end
 function check_charge_and_mass_balance()
 % Checks charge and mass balance of heterologus reactions
 if isfield(pnmodel,'metFormulas') && isfield(pnmodel,'metCharges')
-
+    
     if ~isempty(pnmodel.het_rxn_ind)
         fprintf('Checking heterologus reaction mass and charge balance...')
         model = pnmodel;
