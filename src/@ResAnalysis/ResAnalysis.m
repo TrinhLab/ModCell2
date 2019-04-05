@@ -24,7 +24,9 @@ classdef ResAnalysis < handle
         load_solutions(obj,solution_ids)
         remove_always_zero_prod(obj,solution_ind)
         remove_products(obj,prod_to_remove_id)          % Removes the indicated ids from obj.prodnet and obj.solutions
-        crate_consistent_solutions(obj)
+        remove_products_always_below_min(obj, min_obj)  % Removes products that do not attain a minimum objective in any solution
+        create_consistent_solutions(obj)
+        min_module_reactions(obj, OBJ_TOL)
         mop_solution = set_solution_state(obj,sol_ind)  % Returns a mop_solution and sets obj.prodnet to the appropriate state (i.e. candidates)
 
         % Basic analysis
