@@ -1,0 +1,4 @@
+Solution name,Time(s),Gap(%),Objective value,Deletions,IPRO_module,PROBUT_module,PRO_module,IPROBUT_module,IBUTBUT_module,BUT_module,ETH_module,ETHBUT_module,BUTBUT_module,IBUT_module
+incumbent,2.46,0.00,-0.57280175306984671,"['FC1r', 'FEM7', 'TRA1', 'TRA2', 'TRA4', 'TRA5']",['TRA1'],"['TRA2', 'TRA5']","['FC1r', 'TRA2']",['TRA1'],"['TRA1', 'FEM5']",['TRA5'],"['TRA1', 'TRA5', 'FEM5']","['FEM7', 'TRA2', 'FEM5']","['FEM7', 'TRA2']","['TRA1', 'FEM5']"
+p3,,,-0.57280175306984671,"['FC1r', 'FEM7', 'TRA1', 'TRA2', 'TRA4', 'TRA5']",['TRA1'],"['TRA2', 'TRA5']","['FC1r', 'TRA2']",['TRA1'],"['TRA1', 'FEM5']",['TRA5'],"['TRA1', 'TRA5', 'FEM5']","['FEM7', 'TRA2', 'FEM5']","['FEM7', 'TRA2']","['TRA1', 'FEM5']"
+p2,,,-0.57280175306984671,"['FC1r', 'GLB2', 'TCA5', 'TRA1', 'TRA2', 'TRA4']",['TRA1'],['GLB2'],"['FC1r', 'TCA5']",['TRA1'],"['TRA1', 'FEM5']",['GLB2'],"['GLB2', 'TRA1', 'FEM5']","['TRA2', 'FEM5']",['TRA2'],"['TRA1', 'FEM5']"

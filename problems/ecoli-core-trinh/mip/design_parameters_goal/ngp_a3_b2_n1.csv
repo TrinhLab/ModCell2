@@ -1,0 +1,6 @@
+Solution name,Time(s),Gap(%),Objective value,Deletions,ETHBUT_module,BUTBUT_module,IPRO_module,IBUT_module,ETH_module,IPROBUT_module,IBUTBUT_module
+incumbent,0.77,0.00,-2.3500000000000001,"['FEM7', 'TRA1', 'TRA4']","['FEM7', 'FEM5']",['FEM7'],['TRA4'],['FEM5'],"['TRA1', 'FEM5']",['TRA4'],['FEM5']
+p5,,,-2.3500000000000001,"['FEM7', 'TRA1', 'TRA4']","['FEM7', 'FEM5']",['FEM7'],['TRA4'],['FEM5'],"['TRA1', 'FEM5']",['TRA4'],['FEM5']
+p3,,,-2.3500000000000001,"['TRA1', 'TRA2', 'TRA4']","['TRA2', 'FEM5']",['TRA2'],['TRA4'],['FEM5'],"['TRA1', 'FEM5']",['TRA1'],['FEM5']
+p4,,,-2.3500000000000001,"['TRA1', 'TRA2', 'TRA4']","['TRA2', 'FEM5']",['TRA2'],"['TRA1', 'TRA4']",['FEM5'],"['TRA1', 'FEM5']",['TRA4'],['FEM5']
+p2,,,-2.3500000000000001,"['FEM7', 'TRA1', 'TRA4']","['FEM7', 'FEM5']",['FEM7'],['TRA4'],['FEM5'],"['TRA1', 'FEM5']",['TRA1'],['FEM5']

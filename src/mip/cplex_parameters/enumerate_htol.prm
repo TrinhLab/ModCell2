@@ -1,0 +1,8 @@
+CPLEX Parameter File Version 12.8.0.0
+CPXPARAM_MIP_Pool_RelGap                         0.0001
+CPXPARAM_MIP_Pool_Intensity                      4
+CPXPARAM_MIP_Limits_Populate                     1000000
+CPXPARAM_Parallel                                -1
+CPXPARAM_Output_WriteLevel                       2
+CPXPARAM_MIP_Tolerances_Integrality              9.9999999999999995e-10
+CPXPARAM_Emphasis_Numerical                      1

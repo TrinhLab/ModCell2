@@ -1,0 +1,96 @@
+
+Log started (V12.8.0.0) Thu Aug 30 10:14:38 2018
+
+New value for time limit in seconds: 500
+CPXPARAM_TimeLimit                               500
+CPXPARAM_Emphasis_Numerical                      1
+CPXPARAM_Parallel                                -1
+CPXPARAM_Benders_Strategy                        3
+CPXPARAM_MIP_Tolerances_Integrality              9.9999999999999995e-08
+CPXPARAM_MIP_Pool_AbsGap                         0
+Tried aggregator 3 times.
+MIP Presolve eliminated 8445 rows and 3873 columns.
+Aggregator did 1114 substitutions.
+Reduced MIP has 2317 rows, 2481 columns, and 9093 nonzeros.
+Reduced MIP has 22 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (13.25 ticks)
+Found incumbent of value -5.286667 after 0.02 sec. (24.14 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 2317 rows, 2481 columns, and 9093 nonzeros.
+Reduced MIP has 22 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (2.44 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+      0     0        0.0000                        Benders: 7        0         
+      0     0        0.0000                        Benders: 3        1         
+      0     0        0.0000                        Benders: 1        2         
+      0     0        0.0000                        Benders: 1        3         
+      0     0        0.0000                            0.0000        4         
+Tried aggregator 1 time.
+MIP Presolve modified 90 coefficients.
+Reduced MIP has 13 rows, 32 columns, and 129 nonzeros.
+Reduced MIP has 22 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.03 ticks)
+Probing time = 0.00 sec. (0.01 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 13 rows, 32 columns, and 129 nonzeros.
+Reduced MIP has 22 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.03 ticks)
+Probing time = 0.00 sec. (0.01 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: opportunistic, using up to 8 threads.
+Root relaxation solution time = 0.00 sec. (0.03 ticks)
+*     0+    0                           -5.0289       -0.0000           100.00%
+      0     0        0.0000     2       -5.0289       -0.0000       20  100.00%
+*     0+    0                           -4.4817       -0.0000           100.00%
+
+Repeating presolve.
+Tried aggregator 1 time.
+Reduced MIP has 13 rows, 32 columns, and 129 nonzeros.
+Reduced MIP has 22 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.03 ticks)
+Probing time = 0.00 sec. (0.01 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 13 rows, 32 columns, and 129 nonzeros.
+Reduced MIP has 22 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.03 ticks)
+Represolve time = 0.00 sec. (0.52 ticks)
+Probing time = 0.00 sec. (0.01 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: opportunistic, using up to 8 threads.
+Root relaxation solution time = 0.00 sec. (0.14 ticks)
+*     0+    0                           -4.4817       -0.0000           100.00%
+      0     0        0.0000     3       -4.4817       -0.0000       40  100.00%
+      0     0        0.0000     2       -4.4817   ZeroHalf: 3       42  100.00%
+*     0+    0                           -3.4551       -0.0000           100.00%
+*     0+    0                           -3.3078     Cuts: 228           100.00%
+      0     2        0.0000     2       -3.3078       -0.0000       42  100.00%
+Elapsed time = 0.53 sec. (374.82 ticks, tree = 0.01 MB, solutions = 1)
+    186    33       -1.7877     1       -3.3078       -0.0000      278  100.00%
+    582    91       -2.6267     2       -3.2372       -1.2685     2980   60.82%
+
+Benders cuts applied:  1544
+Zero-half cuts applied:  1
+
+Root node processing (before b&c):
+  Real time             =    0.41 sec. (374.04 ticks)
+Parallel b&c, 8 threads:
+  Real time             =    1.03 sec. (658.65 ticks)
+  Sync time (average)   =    0.06 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    1.44 sec. (1032.69 ticks)
+
+Solution pool: 1 solution saved.
+
+MIP - Integer optimal solution:  Objective = -3.2372488577e+00
+Solution time =    1.44 sec.  Iterations = 3907  Nodes = 816 (1)
+Deterministic time = 1033.28 ticks  (716.94 ticks/sec)
+
+
+Solution pool written to file 'wgcp_a6_b0_n1.sol'.
+Current MIP best bound = -3.2372488577e+00 (gap = -4.44089e-16, 0.00%)

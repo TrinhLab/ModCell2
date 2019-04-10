@@ -1,0 +1,3 @@
+Solution name,Time(s),Gap(%),Objective value,Deletions,etylace_module,etylpte_module,lacUUD_module,etohUpdc_module,etylbte_module,ac_module
+incumbent,36000.07,100.00,-0.77500239989730968,"['ACALD', 'ASNS2', 'CBMKr', 'LDH_D', 'PFL', 'PTAr', 'THD2pp']",['ACALD'],['ACALD'],['LDH_D'],['ALCD2x'],['ACALD'],['PTAr']
+p2,,,-0.77500239989730968,"['ACALD', 'ASNS2', 'CBMKr', 'LDH_D', 'PFL', 'PTAr', 'THD2pp']",['ACALD'],['ACALD'],['LDH_D'],['ALCD2x'],['ACALD'],['PTAr']
