@@ -238,23 +238,35 @@ catch
 end
 
 
-%% Add exchange reaction for target product
-% First see if product is present as external metabolite
-ext_met_ind = findMetIDs(pnmodel, [pt_row.product_id{1}, '_e']);
+%% Exchange reaction for target product
 
-if ext_met_ind == 0
-    % Create exchange reaction directy from cytosol
-    met_id = [pt_row.product_id{1},'_c'];
-    [T, pnmodel, ex_rxn_id] = evalc('addExchangeRxn(pnmodel, {met_id}, 0, inf)'); % Avoid console output
+% First see if the exchange reaction was added as part of the input file
+% this allows things like including "improper" exchange reactions that draw
+% from compartments other than the external medium
+het_rxn_id = pnmodel.rxns(pnmodel.het_rxn_ind);
+exch = startsWith(het_rxn_id, 'EX_');
+if any(exch)
+    if sum(exch) > 1
+        error("Input specifies more than one exchange reaction")
+    end
+    ex_rxn_id = het_rxn_id(exch);
 else
-    % Identify exchange reaction for target product.
-    related_rxn_bool = pnmodel.S(ext_met_ind,:)';
-    ex_rxn_bool = findExcRxns(pnmodel);
-    ex_rxn_id = pnmodel.rxns(related_rxn_bool & ex_rxn_bool);
-    % Make sure it is open:
-    pnmodel = changeRxnBounds(pnmodel, ex_rxn_id, inf, 'u');
+    % First see if product is present as external metabolite
+    ext_met_ind = findMetIDs(pnmodel, [pt_row.product_id{1}, '_e']);
+    
+    if ext_met_ind == 0
+        % Create exchange reaction directy from cytosol
+        met_id = [pt_row.product_id{1},'_c'];
+        [T, pnmodel, ex_rxn_id] = evalc('addExchangeRxn(pnmodel, {met_id}, 0, inf)'); % Avoid console output
+    else
+        % Identify exchange reaction for target product.
+        related_rxn_bool = pnmodel.S(ext_met_ind,:)';
+        ex_rxn_bool = findExcRxns(pnmodel);
+        ex_rxn_id = pnmodel.rxns(related_rxn_bool & ex_rxn_bool);
+        % Make sure it is open:
+        pnmodel = changeRxnBounds(pnmodel, ex_rxn_id, inf, 'u');
+    end
 end
-
 pnmodel.product_secretion_id = ex_rxn_id;
 pnmodel.product_secretion_ind = findRxnIDs(pnmodel, ex_rxn_id);
 
