@@ -1,6 +1,11 @@
-function  find_candidates(obj)
+function  find_candidates(obj, candidate_params)
 % Determine both genes and reactions which are candidates for deletion based on multiple criteria.  First reaction to be excluded from the candidate set are determined, then these are mapped on to genes.
 %
+% Args:
+%   - candidate_params.blocked_in_all_pn : If true only excludes blocked
+%   reactions that are blocked in all production networks from candidates.
+%   If false blocked reactions in the parent model are excluded from the
+%   candidates.
 % Notes:
 %   - For non-growth only type objectives (i.e. NGP) the candidates are different.
 %       the only criteria affected is that blocked reactions are calculated under 0 growth state, and essential reactions/genes are not excluded.
@@ -32,9 +37,17 @@ transport_rxn_ind = transport_rxn(obj, parameters);
 [transport_rxn_ind_final,protected_subsystems_rxn_ind_final,allowed_transport_reactions_ind] =...
     user_protected_tranport(transport_rxn_ind, protected_subsystems_rxn_ind, obj, parameters);
 orphan_rxn_ind = orphan_rxn(obj);
-reactions_blocked_in_all_pn_ind = blocked_rxn(obj);
-if calc_non_growth
-    reactions_blocked_in_all_pn_ind_ng = blocked_rxn_ng(obj);
+if candidate_params.blocked_in_all_pn
+    reactions_blocked_in_all_pn_ind = blocked_rxn(obj);
+    if calc_non_growth
+        reactions_blocked_in_all_pn_ind_ng = blocked_rxn_ng(obj);
+    end
+else
+    reactions_blocked_in_all_pn_ind = parent_blocked_rxn(obj);
+    if calc_non_growth
+        reactions_blocked_in_all_pn_ind_ng = parent_blocked_rxn_ng(obj);
+    end
+    
 end
 essential_reaction_ind = essential_rxn(obj);
 
@@ -261,7 +274,7 @@ end
 
 %% involve protected metabolite:
 function protected_metabolites_ind = protected_metabolites(obj, parameters)
-    protected_metabolites_ind = [];
+protected_metabolites_ind = [];
 if iscell(parameters.protected_metabolites)
     protected_metabolites = drop_empty_elements(parameters.protected_metabolites);
     rxnList = findRxnsFromMets(obj.parent_model, protected_metabolites);
@@ -296,24 +309,24 @@ end
 
 %% transport reactions:
 function [transport_rxn_ind] = transport_rxn(obj, parameters)
-    switch parameters.allow_transport_reaction_deletion{1}
-        case 'no'
-            [~,~,transRxnsBool] = findTransRxns_updated(obj.parent_model);
-            transport_rxn_ind = find(transRxnsBool);
-        case 'yes'
-            transport_rxn_ind = [];
-        otherwise
-            warning('UNRECOGNIZED INPUT for allow_transport_reactions. Use "yes" or "no". Default yes\n')
-            %[~,~,transRxnsBool] = findTransRxns_updated(obj.parent_model);
-            transport_rxn_ind = [];
-    end
+switch parameters.allow_transport_reaction_deletion{1}
+    case 'no'
+        [~,~,transRxnsBool] = findTransRxns_updated(obj.parent_model);
+        transport_rxn_ind = find(transRxnsBool);
+    case 'yes'
+        transport_rxn_ind = [];
+    otherwise
+        warning('UNRECOGNIZED INPUT for allow_transport_reactions. Use "yes" or "no". Default yes\n')
+        %[~,~,transRxnsBool] = findTransRxns_updated(obj.parent_model);
+        transport_rxn_ind = [];
+end
 end
 
 function [transport_rxn_ind_final,protected_subsystems_rxn_ind_final,allowed_transport_reactions_ind] = user_protected_tranport(transport_rxn_ind,protected_subsystems_rxn_ind,  obj, parameters) % This function takes into account those protected by the user
 % The user can enforce transport reactions which are involved
 % with certain metabolites as candidates. This will only override the
 % transport and subsystem criteria, however.
-   
+
 
 %transport involving certain metabolites:
 if iscell(parameters.metabolite_transport_allowed)
@@ -433,6 +446,37 @@ for i = 1:length(prodnet_w_heterologus_rxn_ind)
 end
 reactions_blocked_in_all_pn_ind_ng = ...
     find(sum(blocked_reaction_mat,2) == size(blocked_reaction_mat,2));
+end
+
+function reactions_blocked_in_all_pn_ind = parent_blocked_rxn(obj)
+fprintf('Calculating blocked reactions in parent model\n')
+blockedReactions = findBlockedReaction_fast(obj.parent_model);
+blocked_reaction_ind = findRxnIDs(obj.parent_model, blockedReactions);
+reactions_blocked_in_all_pn_ind = false(obj.n_parent_rxn,1);
+reactions_blocked_in_all_pn_ind(blocked_reaction_ind) = 1;
+end
+
+function reactions_blocked_in_all_pn_ind = parent_blocked_rxn_ng(obj)
+fprintf('Calculating blocked reactions in parent model for non-growth state\n')
+
+% Set growth to 0
+bio_ind = obj.parent_model.biomass_reaction_ind;
+
+orig_gr_lb = obj.parent_model.lb(bio_ind);
+orig_gr_ub = obj.parent_model.ub(bio_ind);
+
+obj.parent_model.lb(bio_ind) = 0;
+obj.parent_model.ub(bio_ind) = 0;
+
+blockedReactions = findBlockedReaction_fast(obj.parent_model);
+
+%reset original growth bound:
+obj.parent_model.lb(bio_ind) = orig_gr_lb ;
+obj.parent_model.ub(bio_ind) = orig_gr_ub;
+%
+blocked_reaction_ind = findRxnIDs(obj.parent_model, blockedReactions);
+reactions_blocked_in_all_pn_ind = false(obj.n_parent_rxn,1);
+reactions_blocked_in_all_pn_ind(blocked_reaction_ind) = 1;
 end
 
 function essential_reaction_ind = essential_rxn(obj)

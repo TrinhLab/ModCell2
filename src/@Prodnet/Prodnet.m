@@ -89,7 +89,7 @@ classdef Prodnet < matlab.mixin.Copyable
         
         %% Constructor
         create_production_networks(obj) % Read the input file and combine production pathways with parent model.
-        find_candidates(obj)            % Determine candidate reactions and genes for deletion.
+        find_candidates(obj, candidate_params)            % Determine candidate reactions and genes for deletion.
         find_candidates_old(obj)
         function obj = Prodnet(input_info, LP_SOLVER)
             % Args:
@@ -130,7 +130,9 @@ classdef Prodnet < matlab.mixin.Copyable
             if ~isfield(input_info, 'old_format')
                 input_info.old_format.use = false;
             end
-            
+            if ~isfield(input_info, 'candidate_params')
+                input_info.candidate_params.blocked_in_all_pn = true;
+            end
             %% Set up paths:
             obj.problem_path = input_info.problem_path;
             obj.problem_name = obj.problem_path(regexp(obj.problem_path,'(/|\\)[\w\d_-]+$')+1:end);
@@ -176,7 +178,7 @@ classdef Prodnet < matlab.mixin.Copyable
                 find_candidates_old(obj);
             else
                 create_production_networks(obj);
-                find_candidates(obj);
+                find_candidates(obj, input_info.candidate_params);
             end
             
             printSeparator('centeredMessage', 'Done')
