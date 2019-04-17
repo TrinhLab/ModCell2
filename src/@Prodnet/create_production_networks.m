@@ -201,7 +201,10 @@ for i=1:length(het_rxns)
     else
         [lower_bound, upper_bound] = default_bounds_from_rxn_str(rt{het_rxns{i},'rxn_str'}{1}, Inf);
     end
-    pnmodel = addReaction_updated(pnmodel,{rt{het_rxns{i},'id'}{1},rt{het_rxns{i},'name'}{1}},rt{het_rxns{i},'rxn_str'}{1},[],1,lower_bound, upper_bound);
+    [pnmodel, exists_ind] = addReaction_updated(pnmodel,{rt{het_rxns{i},'id'}{1},rt{het_rxns{i},'name'}{1}},rt{het_rxns{i},'rxn_str'}{1},[],1,lower_bound, upper_bound);
+    if ~isempty(exists_ind)
+        warning('The reaction %s already exists as %s, please correct input file', het_rxns{i}, pnmodel.rxns{exists_ind})
+    end
 end
 pnmodel.n_het_rxn = length(het_rxns);
 pnmodel.het_rxn_ind = findRxnIDs(pnmodel, het_rxns);
@@ -250,6 +253,10 @@ if any(exch)
         error("Input specifies more than one exchange reaction")
     end
     ex_rxn_id = het_rxn_id(exch);
+elseif any(startsWith(module_rxns, 'DM')) % A module reaction is a demand and it is the secretion target
+    ex_rxn_id = module_rxns{find(startsWith(module_rxns, 'DM'))};
+    assert(sum(startsWith(module_rxns, 'DM')) == 1 )
+    warning('A demand reaction present in the parent model is considred as product secretion target, ensure this is what you want') %i.e., this is a hack
 else
     % First see if product is present as external metabolite
     ext_met_ind = findMetIDs(pnmodel, [pt_row.product_id{1}, '_e']);
@@ -269,7 +276,7 @@ else
 end
 pnmodel.product_secretion_id = ex_rxn_id;
 pnmodel.product_secretion_ind = findRxnIDs(pnmodel, ex_rxn_id);
-
+assert(pnmodel.product_secretion_ind ~=0)
 end
 function pnmodel  = add_secretion_constraints(pnmodel, pathway_id, sc)
 for i = 1:length(sc.pathway_id)
