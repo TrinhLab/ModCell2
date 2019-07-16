@@ -1,21 +1,26 @@
-function set_mip_state(obj, design_objective, state, change_bounds)
+function set_mip_state(obj, design_objective, state, change_bounds, change_inf_bounds)
 % Configures the models for mip.
 %
 % Args:
 %   design_objective (str): 'wGCP', 'sGCP', etc.
 %   state (str): 'growth' or 'nongrowth'
 %   change_bounds(logical, optional): If true, the tight bounds computed
-%       with FBA are set as model.lb and model.ub for each model. Otherwise the
-%       the existing model bounds are not altered, except for +-inf bounds which are replaced by +-M, where M=1000. Default is true;
+%       with FBA are set as model.lb and model.ub for each model.
+%   change_inf_bounds(logical, optional): If true (default) +-inf bounds which are replaced by +-M, where M=1000. Default is true. Not compatible with change_bounds (i.e. change bounds must be false)
 % Todo:
-%   -consolidate set_model_objective with prodnet.calc_basic_objectives
+%   - consolidate set_model_objective with prodnet.calc_basic_objectives
+%   - Make options more sane (current configuration is to avoid breaking compatibility)
 
 if ~exist('change_bounds', 'var')
     change_bounds = true;
 end
 
+if ~exist('change_inf_bounds', 'var')
+    change_inf_bounds = true;
+end
+
 set_model_specific_candidates(obj, design_objective)
-set_models_state(obj, state, change_bounds)
+set_models_state(obj, state, change_bounds, change_inf_bounds)
 end
 
 
@@ -24,7 +29,7 @@ function set_model_specific_candidates(obj, design_objective)
 for k = 1:obj.n_prod
     switch design_objective
         case {'wGCP', 'sGCP', 'lsGCP'} % Candiates must be consistent
-            
+
             obj.model_array(k).candk = setdiff(obj.candidates.reactions.growth.ind, obj.model_array(k).fixed_module_rxn_ind);
         case {'NGP'}
             obj.model_array(k).candk = setdiff(obj.candidates.reactions.non_growth.ind, obj.model_array(k).fixed_module_rxn_ind);
@@ -32,10 +37,9 @@ for k = 1:obj.n_prod
 end
 end
 %%
-function set_models_state(obj, state, change_bounds)
+function set_models_state(obj, state, change_bounds, change_inf_bounds)
 % Configures  objective function, and includes reference to binding
 % constraints
-
 
 for k = 1:obj.n_prod
     switch state
@@ -44,24 +48,16 @@ for k = 1:obj.n_prod
         case {'nongrowth'}
             set_model_objective(obj, 'min_prod_ng', k)
     end
-    
+
     % finite bounds (preserving 0s)
     if change_bounds
         obj.model_array(k).lb = obj.model_array(k).mip.(state).min_flux_z;
         obj.model_array(k).ub = obj.model_array(k).mip.(state).max_flux_z;
-    else
+    elseif change_inf_bounds
         M = 1000;
         obj.model_array(k).lb(obj.model_array(k).lb < -M) = -M;
         obj.model_array(k).ub(obj.model_array(k).ub > M) = M;
     end
-    
-    %{
-    obj.model_array(k).bind_lb = obj.model_array(k).mip.(state).bind_lb;
-    obj.model_array(k).bind_lb_0 = obj.model_array(k).mip.(state).bind_lb_0;
-    obj.model_array(k).bind_ub = obj.model_array(k).mip.(state).bind_ub;
-    obj.model_array(k).bind_ub_0 = obj.model_array(k).mip.(state).bind_ub_0;
-    %}
-    
 end
 end
 
@@ -84,7 +80,7 @@ switch objective
             = 1;
         obj.model_array(i).lb(obj.parent_model.biomass_reaction_ind) ...
             = obj.min_growth_rate;
-        
+
     case 'max_prod_ng'
         obj.model_array(i).c(obj.model_array(i).product_secretion_ind) ...
             = 1;
@@ -92,7 +88,7 @@ switch objective
             = 0;
         obj.model_array(i).ub(obj.parent_model.biomass_reaction_ind) ...
             = 0;
-        
+
     case 'min_prod_ng'
         obj.model_array(i).c(obj.model_array(i).product_secretion_ind) ...
             = -1;
@@ -100,7 +96,7 @@ switch objective
             = 0;
         obj.model_array(i).ub(obj.parent_model.biomass_reaction_ind) ...
             = 0;
-        
+
     case 'max_bio_min_prod'
         obj.model_array(i).c(obj.model_array(i).product_secretion_ind) ...
             = -obj.TILT_EPS;
@@ -108,19 +104,19 @@ switch objective
             = 1;
         obj.model_array(i).lb(obj.parent_model.biomass_reaction_ind) ...
             = obj.min_growth_rate;
-        
+
     case 'max_prod'
         obj.model_array(i).c(obj.model_array(i).product_secretion_ind) ...
             = 1;
-        
+
     case 'min_prod'
         obj.model_array(i).c(obj.model_array(i).product_secretion_ind) ...
             = -1;
-        
+
     case 'max_growth'
         obj.model_array(i).c(obj.parent_model.biomass_reaction_ind) ...
             = 1;
-        
+
     case 'min_prod_min_bio'
         obj.model_array(i).c(obj.model_array(i).product_secretion_ind) ...
             = -1;
@@ -128,10 +124,10 @@ switch objective
             = obj.min_growth_rate;
         obj.model_array(i).ub(obj.parent_model.biomass_reaction_ind) ...
             = obj.min_growth_rate;
-        
+
     otherwise
         error('Unknown objective')
-        
+
 end
 end
 

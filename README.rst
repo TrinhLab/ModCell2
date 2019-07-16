@@ -3,10 +3,10 @@
 
         __  ___          ________     ____
        /  |/  /___  ____/ / ____/__  / / /
-      / /|_/ / __ \/ __  / /   / _ \/ / / 
-     / /  / / /_/ / /_/ / /___/  __/ / /  
-    /_/  /_/\____/\__,_/\____/\___/_/_/   
-    ==================================            
+      / /|_/ / __ \/ __  / /   / _ \/ / /
+     / /  / / /_/ / /_/ / /___/  __/ / /
+    /_/  /_/\____/\__,_/\____/\___/_/_/
+    ==================================
 
 This is the repository for the ModCell2 modular strain design framework.
 
@@ -25,7 +25,7 @@ Installation
 ------------
 Download or clone this repository, then add simply add the ModCell2 folder to your MATLAB path by running
 ::
-   
+
    addpath(genpath(['<parent-directory>', filesep, 'ModCell2']))
 
 Where <parent-directory> depends on your system. To verify your installation execute :code:`run_all_tests.m`. :warning: Make sure the Requierements_ are met. :warning:.
@@ -52,11 +52,13 @@ If you improve ModCell, please share your contribution creating a pull request. 
 Requierements
 -------------
 
+- Matlab (>=2016a) together with the Global Optimization Toolbox and Parallel Computing Toolbox.
+
 - The Cobratoolbox_ must be properly installed.
 
 - Optimization solver:
     - GLPK: This is the best option for solving LPs. It should be working once you installed Cobratoolbox_.
-    - linprog_ (optional): This solver is included in Matlab optimization toolbox and suported by ModCell, but not recomended.
+    - linprog_ (optional): This solver is included in the Matlab Optimization Toolbox and suported by ModCell but not recomended.
     - Gurobi_ (optional): Free licensces are available for academia. This may only be required for analysis methods solving quadratic programming (QP) problems.
     - Other (optional): Solvers can be easily added by modifying the method *calc_basic_objectives.m*
 
