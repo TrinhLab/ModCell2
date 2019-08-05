@@ -149,3 +149,6 @@ set(gca, 'XScale', 'log')
 
 set(gcf, 'Units', 'Inches', 'Position', [0, 0, 7, 6])
 print(['subsys_distr_colored.svg'],'-dsvg')
+
+%% Write candidate list
+writetable(table(pmodel.rxns(prodnet_red.candidates.reactions.growth.ind)), 'candidates.txt', 'WriteVariableNames', false)
