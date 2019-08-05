@@ -1,6 +1,6 @@
 .. image:: modcell-logo.png
     :scale: 100 %
-    :width: 300px
+    :width: 250px
     :align: center
     :alt: (ModCell logo)
 
