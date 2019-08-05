@@ -1,6 +1,6 @@
 .. image:: modcell-logo.png
     :scale: 100 %
-    :width: 250px
+    :width: 200px
     :align: center
     :alt: (ModCell logo)
 
@@ -41,6 +41,7 @@ You may also find the following publications relevant:
 Download_ these references in BibTeX format.
 
 .. _Download: https://raw.githubusercontent.com/TrinhLab/ModCell2/master/garcia.bib
+
 
 Installation
 ------------
