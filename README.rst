@@ -10,6 +10,7 @@ This is the repository for the ModCell2 modular strain design framework.
 If you use any part of this software, please cite:
 
 ::
+
         Sergio Garcia and Cong T. Trinh,
         Multiobjective strain design: A framework for modular cell engineering,
         Metabolic Engineering, Volume 51, 2019, Pages 110-120, ISSN 1096-7176,
@@ -18,18 +19,21 @@ If you use any part of this software, please cite:
 You may also find the following publications relevant:
 
 ::
+
         Sergio Garcia and Cong T. Trinh,
         Comparison of Multi-Objective Evolutionary Algorithms to Solve the Modular Cell Design Problem for Novel Biocatalysis,
         Processes 7, (2019).
         https://doi.org/10.3390/pr7060361
 
 ::
+
         Sergio Garcia and Cong T. Trinh,
         Modular design: Implementing proven engineering principles in biotechnology,
         Biotechnology Advances, 2019,
         https://doi.org/10.1016/j.biotechadv.2019.06.002.
 
 ::
+
         Sergio Garcia and Cong T. Trinh,
         Harnessing natural modularity of cellular metabolism to design a modular chassis cell for a diverse class of products by using goal attainment optimization,
         (In preparation)
