@@ -29,7 +29,7 @@ good_prod_name ={'Ethanol'
     'Pentyl pentanoate'};
 prodnet.prod_name = good_prod_name;
 %% Set prodnet to target design
-[T1, ~, design_vars] = format_output(fullfile(modcell_path,'problems','ecoli-gem','mip','flux_analysis_2','a6_b1_optimized_modules.csv'),prodnet, 'wGCP');
+[T1, ~, design_vars] = format_output(fullfile(modcell_path,'problems','ecoli-gem','mip','flux_analysis','a6_b1_optimized_modules.csv'),prodnet, 'wGCP');
 i=1;
 %prodnet.set_module_and_deleted_variables(design_vars(i).Z,design_vars(i).y)
 prodnet.reset_wild_type_state();
@@ -48,6 +48,6 @@ global X_TICK_LABEL_DIGITS
 X_TICK_LABEL_DIGITS = 2;
 
 ResAnalysis.plot_yield_vs_growth_s(model_array, ko_array, prod_id, solution_id,...
-    'min_obj_val',0,'plot_type','overlap', 'n_rows',4, 'n_cols',5, ...
+    'min_obj_val',0,'plot_type','overlap', 'n_rows',5, 'n_cols',4, ...
     'xticks_values', [0:0.05:0.15], 'all_yticks',false, 'all_xticks', false,...
     'grid', true)

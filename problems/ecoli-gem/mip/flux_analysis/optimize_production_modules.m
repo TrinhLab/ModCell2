@@ -57,10 +57,10 @@ for i = 1:length(pm)
     prodnet.set_module_and_deleted_variables(pm(i).Z,y);
     wgcp(:,i) = prodnet.calc_design_objectives('wGCP');
 end
-%% 
+%%
 names = {pm(:).id};
 names{1} = 'None';
-T = array2table(wgcp); 
+T = array2table(wgcp);
 T.Properties.VariableNames = names;
 T.Properties.RowNames = prodnet.prod_id;
 T
@@ -73,7 +73,7 @@ for k =1:length(prodnet.model_array)
         default{1} = 'None';
     end
     fprintf('\t (Default: %s)\n', default{1})
-    no_module = wgcp(k,1); 
+    no_module = wgcp(k,1);
     max_ind = find(wgcp(k,:) == max(wgcp(k,:))); % Only if increase is significant!
     for i =1:length(max_ind)
         if isempty(pm(max_ind(i)).id)
@@ -88,7 +88,7 @@ end
 
 %% Edit file and load:
 [T2, ~, design_vars2] = format_output(fullfile(modcell_path,'problems','ecoli-gem',...
-    'mip','flux_analysis_2','a6_b1_optimized_modules.csv'),prodnet, 'wGCP');
+    'mip','flux_analysis','a6_b1_optimized_modules.csv'),prodnet, 'wGCP');
 i=1;
 
 %% Plot of  maximum theoretical yield vs module performance

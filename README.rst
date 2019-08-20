@@ -3,7 +3,6 @@
     :align: center
     :alt: (ModCell logo)
 
-
 This is the repository for the ModCell2 modular strain design framework.
 
 If you use any part of this software, please cite:
@@ -49,7 +48,7 @@ Download or clone this repository, then add simply add the ModCell2 folder to yo
 
    addpath(genpath(['<parent-directory>', filesep, 'ModCell2']))
 
-Where <parent-directory> depends on your system. To verify your installation execute :code:`run_all_tests.m`. :warning: Make sure the Requierements_ are met. :warning:.
+Where <parent-directory> depends on your system. To verify your installation execute :code:`run_all_tests.m`. :warning: Make sure the Requierements_ are met. :warning:. You may need to run `initCobraToolbox` once within Matlab for certain methods to work correctly.
 
 Quick start
 ------------

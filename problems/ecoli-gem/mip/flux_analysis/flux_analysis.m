@@ -28,7 +28,7 @@ good_prod_name ={'Ethanol'
     'Pentyl pentanoate'};
 prodnet.prod_name = good_prod_name;
 %% Set prodnet to target design
-[T1, ~, design_vars] = format_output(fullfile(modcell_path,'problems','ecoli-gem','mip','flux_analysis_2','a6_b1_optimized_modules.csv'),prodnet, 'wGCP');
+[T1, ~, design_vars] = format_output(fullfile(modcell_path,'problems','ecoli-gem','mip','flux_analysis','a6_b1_optimized_modules.csv'),prodnet, 'wGCP');
 i=1;
 prodnet.set_module_and_deleted_variables(design_vars(i).Z,design_vars(i).y)
 
