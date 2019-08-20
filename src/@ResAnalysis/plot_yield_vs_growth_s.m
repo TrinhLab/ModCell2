@@ -115,7 +115,7 @@ if strcmp(inputs.plot_type,'overlap')
     mut_colors(4,:) = [255,255,0]./255; % yellow
     mut_colors(5,:) = [204, 0, 0]./255; % red dark    
     
-    mut_line_colors = mut_colors./inputs.line_color_divider;
+    mut_line_colors = mut_colors./inputs.line_color_factor;
     mut_line_colors(3,:) = mut_colors(3,:); % for NGP in the third case the line has to be bright
     
 end
